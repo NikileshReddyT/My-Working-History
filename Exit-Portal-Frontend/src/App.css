@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+/* Dashboard Styles */
+.dashboard {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Headings */
+h2,
+h3,
+h4 {
+  text-align: center;
+}
+
+/* Summary and Categories Styles */
+.summary,
+.categories {
+  margin: 20px 0;
+  width: 100%;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Hover Effects */
+.summary:hover,
+.categories li:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* List Styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 600px;
+  width: 70%;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.15);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically in the center */
+}
+
+/* Center the category name */
+.category-name {
+  flex: 1; /* Allows it to take up available space */
+  text-align: center; /* Center the text */
+}
+
+/* Flex container for credits */
+.category-credits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align credits to the right */
+}
+
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  background-color: #1e3c72;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2a5298;
+}
+
+/* Popup Styles */
+.category-details-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.4s ease;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translate(-50%, -100%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Login Page Styles */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease;
+}
+
+/* Input Styles */
+form{
+  display: flex;
+  flex-direction: row;
+}
+input {
+  width: 80%;
+  padding: 10px;
+  /* background-color: black; */
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Button in Login */
+.login-container button {
+  width: 80%;
+  padding: 12px;
+  background-color: #1e3c72;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #2a5298;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.popup-content {
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .summary,
+  .categories {
+    padding: 15px;
+  }
+
+  .category-details-popup {
+    width: 90%;
+  }
+}
