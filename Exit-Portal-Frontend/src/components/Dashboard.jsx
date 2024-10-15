@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import CategoryList from './CategoryList';
 import Summary from './Summary';
 import CategoryDetailsPopup from './CategoryDetailsPopup';
-
+import CustomNavbar from "./Navbar"; 
 const dummyData = {
   name: 'John Doe',
+  id:'12345',
+  photoUrl:'https://th.bing.com/th?id=OIP.rD-OwfGd7YhZlFARYIUp-wHaHZ&w=250&h=249&c=8&rs=1&qlt=90&r=0&o=6&dpr=2&pid=3.1&rm=2',
   certificateEligible: false,
   specializationCompleted: false,
   categories: [
@@ -82,6 +84,137 @@ const dummyData = {
         { name: 'SDC Course 4', completed: true },
       ],
     },
+    {
+      name: 'Skill Development Electives (SDC ELEC)',
+      minCourses: 1,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'BS Course 1', completed: true },
+      ],
+    },
+    {
+      name: 'Professional Electives',
+      minCourses: 5,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'PE Course 1', completed: true },
+        { name: 'PE Course 2', completed: true },
+        { name: 'PE Course 3', completed: true },
+        { name: 'PE Course 4', completed: true },
+        { name: 'PE Course 5', completed: true },
+      ],
+    },
+    {
+      name: 'Flexi Core Courses(FXC)',
+      minCourses: 2,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'FXC Course 1', completed: true },
+        { name: 'FXC Course 2', completed: true },
+      ],
+    },
+    {
+      name: 'Project Courses(PR)',
+      minCourses: 5,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'PR Course 1', completed: true },
+        { name: 'PR Course 2', completed: true },
+        { name: 'PR Course 3', completed: true },
+        { name: 'PR Course 4', completed: true },
+        { name: 'PR Course 5', completed: true },
+      ],
+    },
+    {
+      name: 'Physics Elective(PHY)',
+      minCourses: 1,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'PHY Course 1', completed: true },
+      ],
+    },
+    {
+      name: 'Chemistry Elective(CHE)',
+      minCourses: 1,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'CHE Course 1', completed: true },
+      ],
+    },
+    {
+      name: 'Open Electives (OE)',
+      minCourses: 3,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'OE Course 1', completed: true },
+        { name: 'OE Course 2', completed: true },
+        { name: 'OE Course 3', completed: true },
+      ],
+    },
+    {
+      name: 'Forigen Langauge Elective(FLE)',
+      minCourses: 1,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'BS Course 1', completed: true },
+      ],
+    },
+    {
+      name: 'Management Elective(ME)',
+      minCourses: 1,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'ME Course 1', completed: true },
+      ],
+    },
+    {
+      name: 'Audit Courses(AUD)',
+      minCourses: 4,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'AUD Course 1', completed: true },
+        { name: 'AUD Course 2', completed: true },
+        { name: 'AUD Course 3', completed: true },
+        { name: 'AUD Course 4', completed: true },
+      ],
+    },
+    {
+      name: 'Value Added Courses(VAC)',
+      minCourses: 4,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'VAC Course 1', completed: true },
+        { name: 'VAC Course 2', completed: true },
+        { name: 'VAC Course 3', completed: true },
+        { name: 'VAC Course 4', completed: true },
+      ],
+    },
+    {
+      name: 'Social Service Activites',
+      minCourses: 7,
+      totalCredits: 20.5,
+      earnedCredits: 20.5,
+      courses: [
+        { name: 'BS Course 1', completed: true },
+        { name: 'BS Course 2', completed: true },
+        { name: 'BS Course 3', completed: true },
+        { name: 'BS Course 4', completed: true },
+        { name: 'BS Course 5', completed: true },
+        { name: 'BS Course 6', completed: true },
+        { name: 'BS Course 7', completed: true },
+      ],
+    },
   ],
 };
 
@@ -104,6 +237,7 @@ const Dashboard = ({studentId}) => {
   return (
     <div className="dashboard">
       <h2>Student Dashboard</h2>
+      <CustomNavbar  data={dummyData} />
       <Summary data={dummyData} StudentId={studentId} />
       <CategoryList
         categories={dummyData.categories}

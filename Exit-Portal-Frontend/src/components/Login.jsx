@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import Header from './Header'
+import Footer from './Footer';
+import './Login.css';
 const Login = ({ onLogin }) => {
   const [id, setId] = useState('');
 
@@ -9,6 +11,8 @@ const Login = ({ onLogin }) => {
   };
 
   return (
+    <div>
+      <Header />
     <div className="login">
       <h2>Student Login</h2>
       <form onSubmit={handleSubmit}>
@@ -20,6 +24,8 @@ const Login = ({ onLogin }) => {
         />
         <button type="submit">Login</button>
       </form>
+    </div>
+    <Footer />
     </div>
   );
 };
