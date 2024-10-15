@@ -3,7 +3,8 @@ import CategoryList from './CategoryList';
 import Summary from './Summary';
 import CategoryDetailsPopup from './CategoryDetailsPopup';
 import CustomNavbar from "./Navbar"; 
-const dummyData = {
+
+const dummyData = { 
   name: 'John Doe',
   id:'12345',
   photoUrl:'https://th.bing.com/th?id=OIP.rD-OwfGd7YhZlFARYIUp-wHaHZ&w=250&h=249&c=8&rs=1&qlt=90&r=0&o=6&dpr=2&pid=3.1&rm=2',
@@ -216,12 +217,19 @@ const dummyData = {
       ],
     },
   ],
-};
+ };
 
-const Dashboard = ({studentId}) => {
-
+const Dashboard = ({ studentId }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const categoriesPerPage = 5; // Adjust this for how many categories per page
+  const totalCategories = dummyData.categories.length;
+  const totalPages = Math.ceil(totalCategories / categoriesPerPage);
+  const indexOfLastCategory = currentPage * categoriesPerPage;
+  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+  const currentCategories = dummyData.categories.slice(indexOfFirstCategory, indexOfLastCategory);
 
   const handleShowPopup = (category) => {
     setSelectedCategory(category);
@@ -232,23 +240,59 @@ const Dashboard = ({studentId}) => {
     setPopupVisible(false);
     setSelectedCategory(null);
   };
-  console.log(studentId);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="dashboard">
       <h2>Student Dashboard</h2>
-      <CustomNavbar  data={dummyData} />
-      <Summary data={dummyData} StudentId={studentId} />
+      <CustomNavbar data={dummyData} />
+      <Summary data={dummyData} studentId={studentId} />
+      
       <CategoryList
-        categories={dummyData.categories}
+        categories={currentCategories} // Use paginated categories here
         onShowPopup={handleShowPopup}
       />
+
       {popupVisible && (
         <CategoryDetailsPopup
           category={selectedCategory}
           onClose={handleClosePopup}
         />
       )}
+
+      {/* Pagination Controls */}
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageClick(index + 1)}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };
