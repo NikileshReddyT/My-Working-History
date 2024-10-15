@@ -59,6 +59,7 @@ h4 {
 }
 
 .summary{
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -95,15 +96,16 @@ li {
   font-size: medium;
   color: rgb(0, 0, 0);
   cursor: pointer;
+  gap: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center; /* Align items vertically in the center */
 }
 
 /* Center the category name */
-.category-name {
-  flex: 1; /* Allows it to take up available space */
-  text-align: center; /* Center the text */
+.category-name {/* Allows it to take up available space */
+  color: red;
+  font-weight: bold;
 }
 
 /* Flex container for credits */
@@ -287,10 +289,7 @@ input {
   border-radius: 50%; /* Circular photo */
 }
 
-.eligibility-container {
-  text-align: center; /* Center text */
-  flex-grow: 1; /* Allow this section to grow and occupy space between left and right */
-}
+
 
 .details-container {
   text-align: right; /* Align text to the right */

@@ -1,27 +1,41 @@
 .custom-navbar {
-    display: flex;
-    align-items: center;
-    width:100%;
-    justify-content: space-between; /* Adjusts space between items */
-    padding: 10px 20px; /* Add some padding around the navbar */
-    background-color: maroon; /* Light background color */
-    border-bottom: 1px solid #dee2e6; /* Optional: bottom border */
-    color:white;
-  }
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between; /* Adjusts space between items */
+  padding: 10px 20px; /* Add some padding around the navbar */
+  background-color: maroon; /* Light background color */
+  border-bottom: 1px solid #dee2e6; /* Optional: bottom border */
+  color: white;
+}
+.student-details {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  width: max-content;
+}
+.photo-div{
+  width: max-content;
+}
+.photo-container{
+  width: max-content;
+}
+
+.photo-container img {
+  width: 60px; /* Set a width for the photo */
+  height: 60px; /* Set a height for the photo */
+  object-fit: cover;
+  border-radius: 0; /* Make the image circular */
+}
+
+.eligibility-container{
+  width: fit-content;
+}
+
+.details-container p{
+    
   
-  .photo-container img {
-    width: 60px; /* Set a width for the photo */
-    height: 60px; /* Set a height for the photo */
-    object-fit:cover;
-    border-radius: 0; /* Make the image circular */
-  }
+    text-align: center;
+    padding: 2px 5px;
   
-  .eligibility-container {
-    flex-grow: 1; /* Takes up available space in the middle */
-    text-align: center; /* Center the text */
-  }
-  
-  .details-container {
-    text-align: right; /* Align details to the right */
-  }
-  
+}
