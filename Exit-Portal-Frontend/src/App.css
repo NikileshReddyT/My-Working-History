@@ -109,6 +109,7 @@ li {
 /* Flex container for credits */
 .category-credits {
   display: flex;
+  width: max-content;
   flex-direction: column;
   align-items: flex-end; /* Align credits to the right */
 }
