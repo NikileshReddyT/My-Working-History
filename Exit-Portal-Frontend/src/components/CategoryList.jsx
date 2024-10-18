@@ -15,8 +15,8 @@ const CategoryList = ({ categories, onShowPopup }) => {
           <li key={index} onClick={() => onShowPopup(category)}>
             <span className='category-name'>{category.name}</span>
             <div className="category-credits">
-              <span className='category-total-credits'>{category.totalCredits} Credits</span>
-              <span className='category-completed-courses'>{calculateCompletedCredits(category)} Completed Credits</span>
+              <span className='category-total-credits'>Required Credits : {category.totalCredits} </span>
+              <span className='category-completed-courses'>Completed Credits : {calculateCompletedCredits(category)} </span>
             </div>
           </li>
         ))}

@@ -3,29 +3,35 @@
   padding: 0;
   box-sizing: border-box;
 }
+#root{
+  width: 100vw;
+}
+.app{
+  width: 100%;
+}
 
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: rgb(249, 249, 249);
   width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(9, 9, 9);
 }
 
 div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 100%;
 }
 
 /* Dashboard Styles */
 .dashboard {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+
   margin: 20px auto;
   padding: 20px;
   background: rgba(255, 255, 255, 0.1);
@@ -47,32 +53,47 @@ h4 {
   margin: 20px 0;
   width: 100%;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(232, 222, 222, 0.363);
   border-radius: 10px;
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
+.summary{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
 /* Hover Effects */
 .summary:hover,
 .categories li:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.3);
+  
+  background: rgba(211, 205, 205, 0.3);
 }
 
 /* List Styles */
 ul {
   list-style-type: none;
+  max-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: auto;
+  scroll-snap-type: proximity;
   padding: 0;
-  max-width: 600px;
-  width: 70%;
+
 }
 
 li {
   background: rgba(255, 255, 255, 0.15);
-  margin: 10px 0;
+  margin: 10px 40px;
   padding: 15px;
   border-radius: 8px;
   transition: background 0.3s ease;
+  font-size: medium;
+  color: rgb(0, 0, 0);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -88,6 +109,7 @@ li {
 /* Flex container for credits */
 .category-credits {
   display: flex;
+  width: max-content;
   flex-direction: column;
   align-items: flex-end; /* Align credits to the right */
 }
@@ -95,7 +117,7 @@ li {
 /* Button Styles */
 button {
   padding: 10px 20px;
-  background-color: #1e3c72;
+  background-color:maroon;
   border: none;
   color: white;
   border-radius: 5px;
@@ -104,7 +126,7 @@ button {
 }
 
 button:hover {
-  background-color: #2a5298;
+  background-color: #b82626;
 }
 
 /* Popup Styles */
@@ -146,9 +168,10 @@ button:hover {
 .login-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   min-height: 100vh;
+  width: 100%;
 }
 
 .login-container {
@@ -158,12 +181,15 @@ button:hover {
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.5s ease;
+  width:300px;
+  margin-right: 20px;
+  margin-left:auto;
 }
 
 /* Input Styles */
 form{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 input {
   width: 80%;
@@ -172,22 +198,32 @@ input {
   margin: 10px 0;
   border: none;
   border-radius: 5px;
+  color:black
 }
 
 /* Button in Login */
 .login-container button {
   width: 80%;
   padding: 12px;
-  background-color: #1e3c72;
+  background-color: maroon;
   border: none;
   border-radius: 5px;
-  color: white;
+  color:black;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+.login{
+  color:black;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease;
+  width: 300px;
+}
 .login-container button:hover {
-  background-color: #2a5298;
+  background-color: maroon;
 }
 
 .popup {
@@ -228,4 +264,34 @@ input {
   .category-details-popup {
     width: 90%;
   }
+  .login-page{
+    align-items:center;
+  }
+}
+
+.custom-navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between left, middle, and right sections */
+  padding: 10px 20px; /* Adjust padding as needed */
+}
+
+.photo-container {
+  display: flex;
+  align-items: center;
+}
+
+.photo-container img {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%; /* Circular photo */
+}
+
+.eligibility-container {
+  text-align: center; /* Center text */
+  flex-grow: 1; /* Allow this section to grow and occupy space between left and right */
+}
+
+.details-container {
+  text-align: right; /* Align text to the right */
 }
