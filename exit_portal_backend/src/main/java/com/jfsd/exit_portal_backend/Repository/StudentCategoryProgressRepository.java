@@ -9,4 +9,5 @@ import java.util.List;
 public interface StudentCategoryProgressRepository extends JpaRepository<StudentCategoryProgress, Long> {
     List<StudentCategoryProgress> findByUniversityId(String universityId);
     void deleteByUniversityId(String universityId);
+    StudentCategoryProgress findFirstByUniversityId(String universityId);
 }

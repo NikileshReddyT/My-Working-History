@@ -1,0 +1,97 @@
+/* Dashboard Styles */
+.dashboard {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Summary and Categories Styles */
+  .summary, .categories {
+    margin: 20px 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(232, 222, 222, 0.363);
+    border-radius: 10px;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .summary {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-evenly;
+
+    a{
+        color: darkblue;
+        text-decoration: none;
+
+        &:hover{
+            color: rgb(10, 10, 10);
+            text-decoration: underline;
+        }
+    }
+  }
+  
+  /* Hover Effects */
+  .summary:hover, .categories li:hover {
+    background: rgba(211, 205, 205, 0.3);
+  }
+  
+  /* Dashboard.css */
+
+/* Spinner for loading */
+.loading-spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Keyframes for spinner animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Fade-in animation for the dashboard */
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  /* Keyframes for fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Popup animation */
+  .popup {
+    animation: popupAppear 0.5s ease-in-out;
+  }
+  
+  @keyframes popupAppear {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

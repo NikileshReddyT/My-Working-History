@@ -1,0 +1,40 @@
+.categories-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .categories-table th, .categories-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .categories-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .categories-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .categories-table tr:hover {
+    background-color: #e2e2e2;
+    cursor: pointer;
+  }
+  
+  .category-name, .category-total-courses, .category-completed-courses, .category-total-credits, .category-completed-credits {
+    padding: 10px;
+  }
+  
+  .categories-table td {
+    font-size: 14px;
+  }
+  
+  /* Add red text for incomplete fields */
+  .incomplete {
+    color: rgb(255, 0, 0);
+    font-weight: bolder;
+  }
+  

@@ -1,15 +1,15 @@
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-#root{
+#root {
   width: 100vw;
 }
-.app{
+.app {
   width: 100%;
 }
-
 body {
   font-family: 'Arial', sans-serif;
   background: rgb(249, 249, 249);
@@ -20,131 +20,11 @@ body {
   align-items: center;
   color: rgb(9, 9, 9);
 }
-
 div {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-}
-
-/* Dashboard Styles */
-.dashboard {
-  width: 100%;
-
-  margin: 20px auto;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-/* Headings */
-h2,
-h3,
-h4 {
-  text-align: center;
-}
-
-/* Summary and Categories Styles */
-.summary,
-.categories {
-  margin: 20px 0;
-  width: 100%;
-  padding: 20px;
-  background: rgba(232, 222, 222, 0.363);
-  border-radius: 10px;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.summary{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-
-/* Hover Effects */
-.summary:hover,
-.categories li:hover {
-  
-  background: rgba(211, 205, 205, 0.3);
-}
-
-/* List Styles */
-ul {
-  list-style-type: none;
-  max-height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  overflow: auto;
-  scroll-snap-type: proximity;
-  padding: 0;
-
-}
-
-li {
-  background: rgba(255, 255, 255, 0.15);
-  margin: 10px 40px;
-  padding: 15px;
-  border-radius: 8px;
-  transition: background 0.3s ease;
-  font-size: medium;
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  gap: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Align items vertically in the center */
-}
-
-/* Center the category name */
-.category-name {/* Allows it to take up available space */
-  color: red;
-  font-weight: bold;
-}
-
-/* Flex container for credits */
-.category-credits {
-  display: flex;
-  width: max-content;
-  flex-direction: column;
-  align-items: flex-end; /* Align credits to the right */
-}
-
-/* Button Styles */
-button {
-  padding: 10px 20px;
-  background-color:maroon;
-  border: none;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #b82626;
-}
-
-/* Popup Styles */
-.category-details-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.9);
-  padding: 30px;
-  border-radius: 8px;
-  max-width: 800px;
-  width: 100%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  animation: slideDown 0.4s ease;
-  z-index: 1000; /* Ensure it's above other elements */
 }
 
 /* Animation Keyframes */
@@ -156,7 +36,6 @@ button:hover {
     opacity: 1;
   }
 }
-
 @keyframes slideDown {
   0% {
     transform: translate(-50%, -100%);
@@ -166,90 +45,18 @@ button:hover {
   }
 }
 
-/* Login Page Styles */
-.login-page {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-}
-
-.login-container {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.5s ease;
-  width:300px;
-  margin-right: 20px;
-  margin-left:auto;
-}
-
-/* Input Styles */
-form{
-  display: flex;
-  flex-direction: column;
-}
-input {
-  width: 100%;
-  padding: 10px;
-  /* background-color: black; */
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  color:black
-}
-
-/* Button in Login */
-.login-container button {
-  width: 80%;
-  padding: 12px;
+/* Button Styles */
+button {
+  padding: 10px 20px;
   background-color: maroon;
   border: none;
+  color: white;
   border-radius: 5px;
-  color:black;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.login{
-  color:black;
-  padding: 40px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.5s ease;
-  width: 300px;
-}
-.login-container button:hover {
-  background-color: maroon;
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Ensure it's above other content */
-}
-
-.popup-content {
-  background: white;
-  color: black;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+button:hover {
+  background-color: #b82626;
 }
 
 /* Responsive Adjustments */
@@ -257,42 +64,7 @@ input {
   .dashboard {
     padding: 15px;
   }
-
-  .summary,
-  .categories {
+  .summary, .categories {
     padding: 15px;
   }
-
-  .category-details-popup {
-    width: 90%;
-  }
-  .login-page{
-    align-items:center;
-  }
 }
-
-.custom-navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Space between left, middle, and right sections */
-  padding: 10px 20px; /* Adjust padding as needed */
-}
-
-.photo-container {
-  display: flex;
-  align-items: center;
-}
-
-.photo-container img {
-  width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
-  border-radius: 50%; /* Circular photo */
-}
-
-
-
-.details-container {
-  text-align: right; /* Align text to the right */
-}
-
-

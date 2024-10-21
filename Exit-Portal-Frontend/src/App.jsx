@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import './App.css';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
-  const [studentId, setStudentId] = useState(null);
-
-  const handleLogin = (id) => {
-    setStudentId(id);
-  };
 
   return (
-    <div className="App">
-      {!studentId ? (
-        <Login onLogin={handleLogin} />
-      ) : (
-        <Dashboard studentId={studentId} />
-      )}
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  )
+
+
+
+
 }
 
 export default App;
