@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import CategoryList from './CategoryList';
 import Summary from './Summary';
 import CategoryDetailsPopup from './CategoryDetailsPopup';
 import CustomNavbar from "./Navbar"; 
+import axios from 'axios';
+
+
+
 const dummyData = {
   name: 'John Doe',
   id:'12345',
@@ -218,7 +222,20 @@ const dummyData = {
   ],
 };
 
+
 const Dashboard = ({studentId}) => {
+  const [data,setData] = useState(null);
+
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8080/api/v1/frontend/login", { universityid: String(studentId) })
+      .then(res => setData(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
+
+
 
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -237,10 +254,10 @@ const Dashboard = ({studentId}) => {
   return (
     <div className="dashboard">
       <h2>Student Dashboard</h2>
-      <CustomNavbar  data={dummyData} />
-      <Summary data={dummyData} StudentId={studentId} />
+      <CustomNavbar  data={data} />
+      <Summary data={data} StudentId={studentId} />
       <CategoryList
-        categories={dummyData.categories}
+        categories={data}
         onShowPopup={handleShowPopup}
       />
       {popupVisible && (

@@ -7,10 +7,11 @@ const CustomNavbar = ({ data }) => {
     return null;
   }
 
-  const { id, photoUrl, certificateEligible, specializationCompleted, name } =
-    data;
+  
+  const { universityId, studentName } =
+    data[0];
   // Use a dummy photo if none is provided
-  const photo = photoUrl || "https://randomuser.me/api/portraits/men/1.jpg"; // Placeholder image
+  const photo =  "https://randomuser.me/api/portraits/men/1.jpg"; // Placeholder image
 
   return (
     <nav className='custom-navbar'>
@@ -19,19 +20,19 @@ const CustomNavbar = ({ data }) => {
         <img src={photo} alt='Student' />
       </div>
       <div className='details-container'>
-        <p>ID: {id || "Unknown ID"}</p>
-        <p>{name || "Unknown Name"}</p>
+        <p>ID: {universityId || "Unknown ID"}</p>
+        <p>{studentName || "Unknown Name"}</p>
       </div>
       </div>
 
       <div className='eligibility-container'>
         <p>
           <strong>Certificate Eligibility</strong>{" "}
-          {certificateEligible ? "Eligible" : "Not Eligible"}
+          Not Eligible
         </p>
         <p>
           <strong>Specialization Eligibility:</strong>{" "}
-          {specializationCompleted ? "Completed" : "Not Completed"}
+          Not Completed
         </p>
       </div>
     </nav>
