@@ -27,7 +27,7 @@ const Login = () => {
         setError('Invalid response from server.');
       }
     } catch (err) {
-      setError('Student ID not found. Please try again.');
+      setError('Invalid Student ID.');
     } finally {
       setLoading(false); // Stop loading once the request is complete
     }
