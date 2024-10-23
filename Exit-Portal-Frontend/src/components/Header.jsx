@@ -1,12 +1,12 @@
 import React from 'react';
-import KLlogo from '../images/KLlogo.png'; // Correct path
+import KLlogo from '../images/Frame 1 NR.png'; // Correct path
 
 const Header = () => {
   return (
     <div>
       <header>
-        <img src={KLlogo} alt='Logo' className='logo' />
-        <h1>KL DEEMED TO BE UNIVERSITY</h1>
+        {/* <img src={KLlogo} alt='Logo' className='logo' /> */}
+        <h1>Exit Request Portal - KL University</h1>
       </header>
     </div>
   );

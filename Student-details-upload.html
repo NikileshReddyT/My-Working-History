@@ -52,6 +52,7 @@
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
 
+        showStatus("Uploading file...", "info");
         fetch("http://localhost:8080/api/grades/upload", {
           method: "POST",
           body: formData,

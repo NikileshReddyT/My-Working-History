@@ -32,7 +32,6 @@
 
         &:hover{
             color: rgb(10, 10, 10);
-            text-decoration: underline;
         }
     }
   }
@@ -95,3 +94,23 @@
     }
   }
   
+  @media (max-width: 768px) {
+    .dashboard {
+      width: 100%;
+      padding: 15px;
+    }
+    .summary {
+      width: 100%;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dashboard {
+      padding: 10px;
+    }
+    .summary {
+      gap: 5px;
+    }
+  }

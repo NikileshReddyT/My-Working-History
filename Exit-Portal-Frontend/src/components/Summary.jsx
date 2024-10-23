@@ -1,12 +1,11 @@
 import React from "react";
 import "./Styles/dashboard.css";
+import PdfDownloadButton from "./PdfDownloadButton";
 const Summary = ({ data, StudentId }) => {
   // console.log(data);
   return (
     <div className='summary'>
-      <h3>
-        <a href='#'>Download PDF</a>
-      </h3>
+        <PdfDownloadButton studentId={StudentId} />
     </div>
   );
 };

@@ -1,50 +1,100 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: block; /* Ensure it's treated as a block element */
+}
+
 .categories-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: large;
-  }
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  min-width: 600px; /* Set minimum width for scrolling */
+  table-layout: auto; /* Allow flexible table layout */
+}
+
+.categories-table th, .categories-table td {
+  border: 1px solid #ddd;
+  padding: 12px 24px;
+  text-align: center;
+}
+
+.categories-table th {
+  font-weight: bold;
+  color: rgb(30, 24, 112);
+  background-color: #f5f5f5;
+}
+
+.categories-table td:first-child {
+  text-align: left;
+}
+
+.categories-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.categories-table tr:hover {
+  background-color: #e2e2e2;
+  cursor: pointer;
+}
+
+.incomplete {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+  font-size: medium;
+  transition: color 0.3s ease;
+}
+
+.incomplete:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgb(54, 30, 152);
   
-  .categories-table th, .categories-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    font-size:20px;
-    text-align: center;
+}
+
+.completed {
+  color: rgb(39, 139, 39);
+  font-weight: bold;
+  font-size: medium;
+}
+
+.completed:hover {
+  text-decoration: underline;
+}
+
+.category-name {
+  font-weight: bold;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto; /* Ensure horizontal scrolling */
   }
-  .categories-table td:first-child{
-    text-align: left;
-  }
-  .categories-table td{
-    text-align: center;
-    font-size: xx-large;
-  }
-  
-  .categories-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
-  .categories-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .categories-table tr:hover {
-    background-color: #e2e2e2;
-    cursor: pointer;
-  }
-  
-  .category-name, .category-total-courses, .category-completed-courses, .category-total-credits, .category-completed-credits {
-    padding: 10px;
-  }
-  
-  .categories-table td {
+  .categories-table {
+    min-width: 600px; /* Set minimum width to ensure it scrolls */
     margin-top: 10px;
-    font-size: 20px;
   }
-  
-  /* Add red text for incomplete fields */
-  .incomplete {
-    color: rgb(228, 43, 43);
-    font-weight: bolder;
+  .categories-table th, .categories-table td {
+    padding: 10px 20px;
+    font-size: 14px;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .table-container {
+    overflow-x: auto; /* Ensure horizontal scrolling */
+  }
+  .categories-table {
+    min-width: 600px; /* Ensure the table is wide enough to scroll */
+  }
+  .categories-table th, .categories-table td {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}

@@ -26,7 +26,7 @@ const CustomNavbar = ({ data }) => {
           <button onClick={()=>{navigate('/')}}>Logout</button>
         </div>
       </div>
-      <h2>Exit Requirement Portal</h2>
+      <h2 className="portal-title">Exit Requirement Portal</h2>
       <div className='eligibility-container'>
         <p>
           <strong>Certificate Eligibility</strong> Not Eligible
