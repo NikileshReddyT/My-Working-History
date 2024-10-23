@@ -2,12 +2,21 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    font-size: large;
   }
   
   .categories-table th, .categories-table td {
     border: 1px solid #ddd;
     padding: 8px;
+    font-size:20px;
+    text-align: center;
+  }
+  .categories-table td:first-child{
     text-align: left;
+  }
+  .categories-table td{
+    text-align: center;
+    font-size: xx-large;
   }
   
   .categories-table th {
@@ -29,12 +38,13 @@
   }
   
   .categories-table td {
-    font-size: 14px;
+    margin-top: 10px;
+    font-size: 20px;
   }
   
   /* Add red text for incomplete fields */
   .incomplete {
-    color: rgb(255, 0, 0);
+    color: rgb(228, 43, 43);
     font-weight: bolder;
   }
   

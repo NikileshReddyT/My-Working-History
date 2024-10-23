@@ -22,51 +22,68 @@ public class StudentGradeService {
     // Upload CSV file
     public List<StudentGrade> uploadCSV(MultipartFile file) throws IOException {
         List<StudentGrade> studentGrades = new ArrayList<>();
-        
+    
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
             // Skip the header line
             boolean firstLine = true;
-            
+    
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
-                    firstLine = false;
+                    firstLine = false; // Skip the header
                     continue;
                 }
-                
-                String[] values = line.split(",");
+    
+                // Parse the line considering quoted commas
+                String[] values = parseCsvLine(line);
+    
                 StudentGrade grade = new StudentGrade();
-                
+    
                 // Set values if they exist
                 if (values.length > 0) grade.setUniversityId(values[0].trim());
                 if (values.length > 1) grade.setStudentName(values[1].trim());
                 if (values.length > 2) grade.setCourseCode(values[2].trim());
                 if (values.length > 3) grade.setCourseName(values[3].trim());
-                if (values.length > 4) grade.setGrade(values[4].trim());
+    
+                // Clean up the grade field (5th column)
+                if (values.length > 4) {
+                    String gradeValue = values[4].trim();
+                    int indexOfParenthesis = gradeValue.indexOf('(');
+                    if (indexOfParenthesis != -1) {
+                        gradeValue = gradeValue.substring(0, indexOfParenthesis).trim(); // Remove any grades in parentheses
+                    }
+                    gradeValue = gradeValue.replace("\"", ""); // Remove leading/trailing quotes if present
+                    grade.setGrade(gradeValue);
+                }
+    
+                // Set grade point, credits, promotion, and category
                 if (values.length > 5) {
+                    String gradePointValue = values[5].trim();
                     try {
-                        grade.setGradePoint(Double.parseDouble(values[5].trim()));
+                        grade.setGradePoint(Double.parseDouble(gradePointValue)); // Parse grade point
                     } catch (NumberFormatException e) {
-                        grade.setGradePoint(0.0);
+                        grade.setGradePoint(0.0); // Default to 0.0 if parsing fails
                     }
                 }
+    
                 if (values.length > 6) {
+                    String creditsValue = values[6].trim();
                     try {
-                        grade.setCredits(Double.parseDouble(values[6].trim()));
+                        grade.setCredits(Double.parseDouble(creditsValue)); // Parse credits
                     } catch (NumberFormatException e) {
-                        grade.setCredits(0.0);
+                        grade.setCredits(0.0); // Default to 0.0 if parsing fails
                     }
                 }
+    
                 if (values.length > 7) grade.setPromotion(values[7].trim());
                 if (values.length > 8) grade.setCategory(values[8].trim());
-                
-                studentGrades.add(grade);
+    
+                studentGrades.add(grade); // Add the populated StudentGrade object to the list
             }
         }
-        
-        return studentGradeRepository.saveAll(studentGrades);
-    }
-
+    
+        return studentGradeRepository.saveAll(studentGrades); // Save all student grades to the repository
+    }      
     // Get all grades
     public List<StudentGrade> getAllGrades() {
         return studentGradeRepository.findAll();
@@ -110,4 +127,35 @@ public class StudentGradeService {
         }
         return null;
     }
+
+
+
+
+    private String[] parseCsvLine(String line) {
+        List<String> values = new ArrayList<>();
+        StringBuilder currentValue = new StringBuilder();
+        boolean inQuotes = false;
+    
+        for (char c : line.toCharArray()) {
+            if (c == '"') {
+                inQuotes = !inQuotes; // Toggle the inQuotes flag
+            } else if (c == ',' && !inQuotes) {
+                values.add(currentValue.toString().trim()); // Add current value and reset
+                currentValue.setLength(0);
+            } else {
+                currentValue.append(c); // Append character to current value
+            }
+        }
+        // Add the last value if present
+        if (currentValue.length() > 0) {
+            values.add(currentValue.toString().trim());
+        }
+    
+        return values.toArray(new String[0]);
+    }
+
+
+
+
+
 }

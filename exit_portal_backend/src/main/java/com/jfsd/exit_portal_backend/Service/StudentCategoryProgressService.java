@@ -31,25 +31,26 @@ public class StudentCategoryProgressService {
         List<StudentGrade> allGrades = studentGradeRepository.findAll();
         Set<String> uniqueStudents = allGrades.stream()
                 .map(StudentGrade::getUniversityId)
+                .filter(Objects::nonNull)  // Ensure no null universityId
                 .collect(Collectors.toSet());
-
+    
         // Get all categories
         List<Categories> allCategories = categoriesRepository.findAll();
-
+    
         // Process each student
         for (String universityId : uniqueStudents) {
             // Get student's grades
             List<StudentGrade> studentGrades = allGrades.stream()
                     .filter(grade -> grade.getUniversityId().equals(universityId))
                     .collect(Collectors.toList());
-
+    
             if (studentGrades.isEmpty()) continue;
-
+    
             // Delete existing progress records for this student
             progressRepository.deleteByUniversityId(universityId);
-
+    
             String studentName = studentGrades.get(0).getStudentName();
-
+    
             // Process each category
             for (Categories category : allCategories) {
                 // Get courses in this category
@@ -57,18 +58,19 @@ public class StudentCategoryProgressService {
                 Set<String> categoryCourseCodes = categoryCourses.stream()
                         .map(Courses::getCourseCode)
                         .collect(Collectors.toSet());
-
+    
                 // Calculate completed courses and credits for this category
                 List<StudentGrade> completedCourses = studentGrades.stream()
                         .filter(grade -> categoryCourseCodes.contains(grade.getCourseCode()))
-                        .filter(grade -> !grade.getGrade().equals("F")) // Exclude failed courses
+                        .filter(grade -> grade.getPromotion().equals("P")) // Only include if promotion is "P"
                         .collect(Collectors.toList());
-
+    
+                // Calculate completed course count and credits sum
                 int completedCourseCount = completedCourses.size();
                 double completedCreditsSum = completedCourses.stream()
                         .mapToDouble(StudentGrade::getCredits)
                         .sum();
-
+    
                 // Create progress record
                 StudentCategoryProgress progress = new StudentCategoryProgress(
                     universityId,
@@ -79,12 +81,12 @@ public class StudentCategoryProgressService {
                     completedCourseCount,
                     completedCreditsSum
                 );
-
+    
                 progressRepository.save(progress);
             }
         }
     }
-
+    
     public List<StudentCategoryProgress> getStudentProgress(String universityId) {
         return progressRepository.findByUniversityId(universityId);
     }

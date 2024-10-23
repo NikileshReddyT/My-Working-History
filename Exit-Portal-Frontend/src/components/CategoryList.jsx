@@ -9,11 +9,10 @@ const CategoryList = ({ categories, onShowPopup }) => {
 
   return (
     <div className='categories'>
-      <h4>Categories</h4>
       <table className='categories-table'>
         <thead>
           <tr>
-            <th>Category Name</th>
+            <th>Course Category</th>
             <th>Required Courses</th>
             <th>Completed Courses</th>
             <th>Required Credits</th>
@@ -24,14 +23,13 @@ const CategoryList = ({ categories, onShowPopup }) => {
           {categories.map((category, index) => (
             <tr key={index} onClick={() => onShowPopup(category)}>
               <td
-                className={`category-name ${
-                  category.completedCourses < category.minRequiredCourses ||
-                  category.completedCredits < category.minRequiredCredits
-                    ? "incomplete"
-                    : ""
-                }`}
+ 
               >
                 {category.categoryName}
+                {category.completedCourses < category.minRequiredCourses ||
+                 category.completedCredits < category.minRequiredCredits ? (
+                  <span className="category-name incomplete">(Incomplete)</span>
+                ) : null}
               </td>
               <td className='category-total-courses'>
                 {category.minRequiredCourses}

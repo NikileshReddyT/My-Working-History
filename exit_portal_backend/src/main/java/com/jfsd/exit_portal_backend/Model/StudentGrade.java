@@ -110,5 +110,6 @@ public class StudentGrade {
         this.category = category;
     }
 
+    @Column(nullable = false)
     private String category;
 }
