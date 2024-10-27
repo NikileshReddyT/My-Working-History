@@ -9,7 +9,7 @@ const CategoryList = ({ categories, onShowPopup }) => {
 
   return (
     <div className='categories'>
-      
+      <h3 className="click-to-view-details">Click on the category to view details</h3>
       <div className="table-container">
         <table className='categories-table'>
           <thead>
@@ -58,7 +58,7 @@ const CategoryList = ({ categories, onShowPopup }) => {
                   category.completedCourses >= category.minRequiredCourses &&
                   category.completedCredits >= category.minRequiredCredits
                     ? "completed"
-                    : "incomplete"
+                    : "incomplete-status"
                 }`}>
                   {category.completedCourses >= category.minRequiredCourses &&
                    category.completedCredits >= category.minRequiredCredits

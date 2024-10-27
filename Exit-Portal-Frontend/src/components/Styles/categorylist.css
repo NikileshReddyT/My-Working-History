@@ -40,14 +40,15 @@
   cursor: pointer;
 }
 
-.incomplete {
-  color: rgb(255, 0, 0);
-  font-weight: bold;
+.incomplete, .incomplete-status {
+  color: rgb(247, 70, 70);
+  font-weight: bolder;
   font-size: medium;
   transition: color 0.3s ease;
 }
 
-.incomplete:hover {
+
+.incomplete-status:hover {
   text-decoration: underline;
   cursor: pointer;
   color: rgb(54, 30, 152);
@@ -72,6 +73,15 @@ abbr {
   text-decoration: none;
 }
 
+.click-to-view-details {
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #00000093;
+}
+
+
+
 @media (max-width: 768px) {
   .table-container {
     overflow-x: auto; /* Ensure horizontal scrolling */
@@ -83,6 +93,9 @@ abbr {
   .categories-table th, .categories-table td {
     padding: 10px 20px;
     font-size: 14px;
+  }
+  .click-to-view-details {
+    font-size: 18px;
   }
 }
 
@@ -96,5 +109,8 @@ abbr {
   .categories-table th, .categories-table td {
     padding: 8px 16px;
     font-size: 14px;
+  }
+  .click-to-view-details {
+    font-size:  14px;
   }
 }

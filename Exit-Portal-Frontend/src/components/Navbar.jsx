@@ -14,6 +14,13 @@ const CustomNavbar = ({ data }) => {
   // Use a dummy photo if none is provided
   const photo = "https://randomuser.me/api/portraits/men/1.jpg"; // Placeholder image
 
+  const handleLogout = () => {
+    // Clear all data from local storage
+    localStorage.clear();
+    // Navigate to the root path
+    navigate('/');
+  };
+
   return (
     <nav className='custom-navbar'>
       <div className='student-details'>
@@ -23,13 +30,13 @@ const CustomNavbar = ({ data }) => {
         <div className='details-container'>
           <p>ID: {universityId || "Unknown ID"}</p>
           <p>{studentName || "Unknown Name"}</p>
-          <button onClick={()=>{navigate('/')}}>Logout</button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
       <h2 className="portal-title">Exit Requirement Portal</h2>
       <div className='eligibility-container'>
         <p>
-          <strong>Certificate Eligibility</strong> Not Eligible
+          <strong>Certificate Eligibility:</strong> Not Eligible
         </p>
         <p>
           <strong>Specialization Eligibility:</strong> Not Completed

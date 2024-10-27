@@ -13,27 +13,25 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    setError(''); // Clear any previous errors
-    setLoading(true); // Show loading spinner
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
       const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
-        universityid: id, // Send student ID in the request
+        universityid: id,
       });
 
       if (response.data && response.data.universityid) {
-        // Navigate to dashboard if login is successful
-        navigate('/dashboard', { state: { studentId: response.data.universityid } });
+        // Store only the student ID in local storage
+        localStorage.setItem('studentId', response.data.universityid);
+        navigate('/dashboard');
       } else {
-        // Handle cases where server doesn't return the expected data
         setError('Invalid response from server.');
       }
     } catch (err) {
-      // Handle network or server errors
       setError('Invalid Student ID.');
     } finally {
-      // Hide loading spinner once the request is complete
       setLoading(false);
     }
   };
@@ -42,6 +40,32 @@ const Login = () => {
     <div>
       <Header />
       <div className="login animate-fade-in">
+      <div className='portal-details'>
+
+
+      <div className="intro-container">
+        <h3>KL University</h3>
+        <p>
+          KL University, a renowned institution dedicated to providing quality education and fostering innovation, 
+          is committed to empowering students with the knowledge and skills needed to excel in their respective fields.
+          With a vibrant campus, experienced faculty, and a range of academic programs, KL University stands as a 
+          beacon of learning and development.
+        </p>
+        
+        <h3>Exit Graduation Eligibility Portal</h3>
+        <p className="left-aligned">
+          This portal is designed specifically for KL University students to check their eligibility for graduation 
+          based on the number of credits and courses completed across various categories. 
+          The portal also considers individual specialization requirements, ensuring a comprehensive evaluation of 
+          each student's academic journey.
+        </p>
+        <p className="left-aligned">
+          By logging into this portal, you can easily access your academic records, check your credit status, 
+          and generate reports necessary for graduation requirements. Please log in using your Student ID and follow 
+          the instructions to receive an OTP for verification.
+        </p>
+      </div>
+      </div>
         <div className="login-container">
           <img src={logo} alt="University Logo" className="logo" />
           <h2>Student Login</h2>

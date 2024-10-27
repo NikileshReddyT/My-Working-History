@@ -16,7 +16,7 @@
 }
 .portal-title {
   font-size: 1.5rem;
-  width: 100%;
+  width: max-content;
   text-align: center;
 }
 .photo-div {
@@ -27,20 +27,50 @@
 }
 
 .photo-container img {
-  width: 60px; /* Set a width for the photo */
-  height: 60px; /* Set a height for the photo */
+  width: 50%; /* Set a width for the photo */
+  height: auto; /* Set a height for the photo */
   object-fit: cover;
   border-radius: 0; /* Make the image circular */
 }
 
 .eligibility-container {
-  width: fit-content;
+  width: max-content;
 }
 
 .details-container p {
   text-align: center;
   padding: 2px 5px;
+  width: 100%;
 }
+.details-container button{
+  width: max-content;
+  padding: 5px 10px;
+}
+
+.logout-button{
+  /* background-color: white; */
+  /* color: black; */
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px 10px;
+  background-color: transparent;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  text-decoration: underline;
+  color: #1e1870;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: translate(-5%, 15%);
+  &:hover{
+    background-color:maroon;
+    color: white;
+  }
+}
+
+
 /* Media Queries */
 
 /* Tablets (max-width: 768px) */
@@ -54,6 +84,9 @@
     display: none;
   }
 
+  .logout-button{
+    transform: translate(-0%, 0%);
+  }
   .student-details {
     flex-direction: column; /* Stack student details vertically */
     gap: 5px; /* Reduce gap between details */
@@ -66,7 +99,7 @@
   }
 
   .details-container p {
-    text-align: left; /* Align text to the left */
+    text-align: center; /* Align text to the left */
     font-size: 0.9rem; /* Adjust font size */
   }
 
@@ -96,10 +129,14 @@
   }
 
   .details-container p {
-    text-align: left;
+    text-align: center;
     font-size: 0.8rem; /* Smaller font size for mobile */
   }
 
+  .logout-button{
+    font-size: 1rem;
+    transform: translate(-0%,5%);
+  }
   .eligibility-container {
     width: 100%; /* Full width */
     text-align: left;

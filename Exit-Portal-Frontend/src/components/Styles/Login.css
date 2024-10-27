@@ -1,12 +1,10 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom right, #f8f9fa, #e9ecef); /* Subtle gradient background */
-}
+/* Reset */
+/*  */
 
+/* Header and Footer Styles */
 header, footer {
-  background-color: rgba(128, 0, 0, 0.45);
-  color: white;
+  background-color: rgba(128, 0, 0, 0.7);
+  color: #fff;
   padding: 1em;
   text-align: center;
   width: 100%;
@@ -14,7 +12,18 @@ header, footer {
   left: 0;
   z-index: 1000;
 }
-header{
+
+header {
+  background-color: rgba(128, 0, 0, 0.7);
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  z-index: 1000;
+  top: 0;
+  font-size: 1.2rem; /* Default font size */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,139 +31,268 @@ header{
 }
 
 footer {
-  bottom: 0; /* Fix the footer to the bottom */
-  padding: 1em; /* Additional padding for better spacing */
-  font-size: 14px; /* Smaller font size for footer text */
+  bottom: 0;
+  font-size: 14px;
 }
 
+/* Main Content Container */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 80px 0; /* Space for header and footer */
+  width: 100%;
+}
+
+/* Login Section */
 .login {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    background: url('../../images/klu.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* filter: blur(5px); */
-    z-index: -1;
-  }
+  flex-direction: row;
+  justify-content: space-between;
+  background: rgba(223, 218, 175, 0.31);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  min-height: calc(100vh - 120px); /* Full height minus header and footer */
+  max-height: calc(100vh - 120px); /* Full height minus header and footer */
   position: relative;
-  padding-top: 80px; /* Space for fixed header */
+  gap: 2rem;
+  
+  animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Background Image Overlay */
+.login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../images/photo_2024-10-26_22-35-49.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1; /* Subtle overlay effect */
+  z-index: -1;
+}
+
+/* Portal Details (Left Side) */
+.portal-details {
+  flex: 1;
+  padding: 1.5rem;
+  color: #333;
+  border-radius: 8px;
+  /* No overflow set here for larger screens */
+}
+
+.portal-details h3 {
+  color: #800000;
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.5rem; /* Default font size */
+}
+
+.portal-details p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #555;
+  font-size: 1rem; /* Default font size */
+}
+
+/* Login Form Container (Right Side) */
 .login-container {
-  background: rgba(234, 229, 229, 0.9);
-  padding:10px 30px 30px 30px;
-  border-radius: 12px;
-  margin-bottom: 100px;
+  width: 400px;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 10px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease;
-  /* z-index: 100; */
-  width: 350px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
-  width: 150px;
+  width: 120px;
   height: auto;
-  margin-bottom: 5px;
+  margin-bottom: 1rem;
 }
 
 h2 {
-  margin: 0 0 20px;
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #800000;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
-input {
-  width: 100%;
+input[type="text"] {
   padding: 12px 15px;
-  margin: 10px 0;
   border: 2px solid #ced4da;
   border-radius: 5px;
-  color: black;
+  font-size: 1rem;
   transition: border-color 0.3s ease;
 }
 
-input:focus {
-  border-color: maroon; /* Change border color on focus */
+input[type="text"]:focus {
+  border-color: #800000;
   outline: none;
 }
 
 button {
-  width: 100%;
   padding: 12px;
-  background-color: maroon;
+  background-color: #800000;
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: darkred; /* Darker shade on hover */
+  background-color: darkred;
 }
 
+/* Spinner */
+.button-spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid maroon;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
 .error-message {
   color: red;
-  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
+/* Forgot Password Link */
 .forgot-password {
-  margin-top: 15px;
-  color: maroon;
+  color: #800000;
+  margin-top: 1rem;
+  font-size: 0.9rem;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .forgot-password:hover {
-  color: darkred; /* Darker shade on hover */
+  color: darkred;
 }
 
-/* Media Queries for Responsive Design */
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .portal-details {
+    max-height: 400px; /* Set a maximum height to trigger scrolling */
+    overflow-y: auto; /* Enable vertical scrolling for large tablets */
+  }
+
+  .portal-details h3 {
+    font-size: 1.4rem; /* Slightly smaller font size for large tablets */
+  }
+
+  .portal-details p {
+    font-size: 0.95rem; /* Slightly smaller font size for large tablets */
+  }
+
+  header {
+    font-size: 1.1rem; /* Slightly smaller font size for large tablets */
+  }
+}
+
 @media (max-width: 768px) {
-  .login-container {
-    width: 70%; /* Make the login container wider on smaller screens */
-    padding: 20px; /* Adjust padding for smaller screens */
+  .login {
+    flex-direction: column-reverse;
+    padding: 1.5rem;
+    justify-content: center;
+    align-items: center;
   }
 
-  h2 {
-    font-size: 22px; /* Slightly smaller heading on smaller screens */
+
+  .portal-details {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .login-container{
+    width: 60%;
+    max-width: 100%;
   }
 
-  input, button {
-    padding: 10px; /* Adjust padding for smaller inputs and buttons */
+  .portal-details h3 {
+    font-size: 1.3rem; /* Smaller font size for medium screens */
+  }
+
+  .portal-details p {
+    font-size: 0.9rem; /* Smaller font size for medium screens */
+  }
+
+  .portal-details {
+    max-height: 300px; /* Set a maximum height to trigger scrolling */
+    overflow-y: auto; /* Enable vertical scrolling for medium screens */
+  }
+
+  header {
+    font-size: 12px; /* Smaller font size for medium screens */
   }
 }
 
 @media (max-width: 480px) {
   header, footer {
-    font-size: 12px; /* Smaller font size for mobile */
-    padding: 0.5em; /* Less padding for header and footer */
-  }
-
-  .login-container {
-    padding: 15px; /* Less padding for the login container */
+    font-size: 12px;
   }
 
   h2 {
-    font-size: 20px; /* Smaller heading on very small screens */
+    font-size: 20px;
+  }
+
+  
+  button {
+    padding: 10px;
+  }
+  .login-container{
+    width: 90%;
+    max-width: 100%;
+  }
+
+  .portal-details {
+    max-height: 200px; /* Further reduce height for smaller screens */
+    overflow-y: auto; /* Enable vertical scrolling for small screens */
+  }
+
+  .portal-details h3 {
+    font-size: 1.1rem; /* Even smaller font size for small screens */
+  }
+
+  .portal-details p {
+    font-size: 0.8rem; /* Even smaller font size for small screens */
+  }
+
+  header {
+    font-size: 11px;/* Even smaller font size for small screens */
   }
 }
