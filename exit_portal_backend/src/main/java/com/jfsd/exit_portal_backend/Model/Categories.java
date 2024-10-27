@@ -2,8 +2,6 @@ package com.jfsd.exit_portal_backend.Model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,8 +16,6 @@ public class Categories {
     private int minCourses;
     private double minCredits;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Courses> courses = new ArrayList<>();
 
     public int getCategoryID() {
         return categoryID;
@@ -51,14 +47,6 @@ public class Categories {
 
     public void setMinCredits(double minCredits) {
         this.minCredits = minCredits;
-    }
-
-    public List<Courses> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Courses> courses) {
-        this.courses = courses;
     }
 
     @Override

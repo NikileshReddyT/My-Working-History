@@ -39,7 +39,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, onClose }) => {
                 <tbody>
                   {category.map((course, index) => (
                     <tr key={index}>
-                      <td>{course.academicYear}</td>
+                      <td>{course.year}</td>
                       <td>{course.semester}</td>
                       <td>{course.courseCode}</td>
                       <td>{course.courseName}</td>

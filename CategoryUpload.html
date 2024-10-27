@@ -99,7 +99,7 @@
           const formData = new FormData();
           formData.append("file", file);
 
-          fetch("https://exit-portal-requirement-klu.onrender.com/api/categories/populate", {
+          fetch("http://localhost:8080/api/categories/populate", {
             method: "POST",
             body: formData,
           })

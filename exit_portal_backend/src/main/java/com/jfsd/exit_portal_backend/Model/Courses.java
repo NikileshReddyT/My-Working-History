@@ -1,8 +1,8 @@
 package com.jfsd.exit_portal_backend.Model;
 
 import java.util.Objects;
-
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "courses")
 public class Courses {
@@ -20,10 +20,8 @@ public class Courses {
     @Column(nullable = true)
     private double courseCredits;
 
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryID", nullable = true)  // Explicitly allow null
-    private Categories category;
+    @Column(name = "category", nullable = true)
+    private String category;  // Changed to a String to hold category name
 
     // Getters and Setters
 
@@ -72,11 +70,11 @@ public class Courses {
         this.courseCredits = courseCredits;
     }
 
-    public Categories getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

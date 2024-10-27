@@ -1,4 +1,3 @@
-// Service
 package com.jfsd.exit_portal_backend.Service;
 
 import com.jfsd.exit_portal_backend.Model.*;
@@ -21,9 +20,9 @@ public class StudentCategoryProgressService {
     
     @Autowired
     private CategoriesRepository categoriesRepository;
-    
-    // @Autowired
-    // private CoursesRepository coursesRepository;
+
+    @Autowired
+    private CoursesRepository coursesRepository;
 
     @Transactional
     public void calculateAndUpdateProgress() {
@@ -53,8 +52,8 @@ public class StudentCategoryProgressService {
     
             // Process each category
             for (Categories category : allCategories) {
-                // Get courses in this category
-                List<Courses> categoryCourses = category.getCourses();
+                // Fetch courses by category name
+                List<Courses> categoryCourses = coursesRepository.findByCategoryName(category.getCategoryName());
                 Set<String> categoryCourseCodes = categoryCourses.stream()
                         .map(Courses::getCourseCode)
                         .collect(Collectors.toSet());

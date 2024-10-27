@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+// import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -32,23 +32,23 @@ public class CoursesController {
 
 
 
-      @PostMapping("/coursecredits")
-    public ResponseEntity<String> populateCourseCredits(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Please select a CSV file to upload.");
-        }
+    //   @PostMapping("/coursecredits")
+    // public ResponseEntity<String> populateCourseCredits(@RequestParam("file") MultipartFile file) {
+    //     if (file.isEmpty()) {
+    //         return ResponseEntity.badRequest().body("Please select a CSV file to upload.");
+    //     }
 
-        try {
-            coursesService.addCourseCredits(file);
-            return ResponseEntity.ok("Course credits populated successfully");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Failed to process the CSV file: " + e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("An unexpected error occurred: " + e.getMessage());
-        }
-    }
+    //     try {
+    //         coursesService.addCourseCredits(file);
+    //         return ResponseEntity.ok("Course credits populated successfully");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body("Failed to process the CSV file: " + e.getMessage());
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return ResponseEntity.internalServerError().body("An unexpected error occurred: " + e.getMessage());
+    //     }
+    // }
     
 
     @PostMapping
