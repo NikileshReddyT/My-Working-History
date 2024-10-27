@@ -24,49 +24,52 @@ const CategoryList = ({ categories, onShowPopup }) => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category, index) => (
-              <tr key={index} onClick={() => onShowPopup(category)}>
-                <td className="category-name">{category.categoryName}</td>
-                <td className='category-total-courses'>
-                  {category.minRequiredCourses}
-                </td>
-                <td
-                  className={`category-completed-courses ${
-                    category.completedCourses < category.minRequiredCourses
-                      ? "incomplete"
-                      : ""
-                  }`}
-                >
-                  {category.completedCourses}
-                </td>
-                <td className='category-total-credits'>
-                  {category.minRequiredCredits}
-                </td>
-                <td
-                  className={`category-completed-credits ${
-                    category.completedCredits < category.minRequiredCredits
-                      ? "incomplete"
-                      : ""
-                  }`}
-                >
-                  {category.completedCredits}
-                </td>
-                <td className='category-remaining-courses'>
-                  {Math.max(0, category.minRequiredCourses - category.completedCourses)}
-                </td>
-                <td className={`status-cell ${
-                  category.completedCourses >= category.minRequiredCourses &&
-                  category.completedCredits >= category.minRequiredCredits
-                    ? "completed"
-                    : "incomplete-status"
-                }`}>
-                  {category.completedCourses >= category.minRequiredCourses &&
-                   category.completedCredits >= category.minRequiredCredits
-                    ? "Completed"
-                    : <abbr title="Click to view details">Incomplete</abbr>}
-                </td>
-              </tr>
-            ))}
+            {categories.map((category, index) => {
+              const pendingCourses = Math.max(0, category.minRequiredCourses - category.completedCourses);
+              return (
+                <tr key={index} onClick={() => onShowPopup(category, pendingCourses)}>
+                  <td className="category-name">{category.categoryName}</td>
+                  <td className='category-total-courses'>
+                    {category.minRequiredCourses}
+                  </td>
+                  <td
+                    className={`category-completed-courses ${
+                      category.completedCourses < category.minRequiredCourses
+                        ? "incomplete"
+                        : ""
+                    }`}
+                  >
+                    {category.completedCourses}
+                  </td>
+                  <td className='category-total-credits'>
+                    {category.minRequiredCredits}
+                  </td>
+                  <td
+                    className={`category-completed-credits ${
+                      category.completedCredits < category.minRequiredCredits
+                        ? "incomplete"
+                        : ""
+                    }`}
+                  >
+                    {category.completedCredits}
+                  </td>
+                  <td className='category-remaining-courses'>
+                    {pendingCourses}
+                  </td>
+                  <td className={`status-cell ${
+                    category.completedCourses >= category.minRequiredCourses &&
+                    category.completedCredits >= category.minRequiredCredits
+                      ? "completed"
+                      : "incomplete-status"
+                  }`}>
+                    {category.completedCourses >= category.minRequiredCourses &&
+                     category.completedCredits >= category.minRequiredCredits
+                      ? "Completed"
+                      : <abbr title="Click to view details">Incomplete</abbr>}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

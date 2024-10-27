@@ -1,6 +1,7 @@
 package com.jfsd.exit_portal_backend.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,10 @@ import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.RequestBodies.Login;
 import com.jfsd.exit_portal_backend.RequestBodies.Student;
+import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
 import com.jfsd.exit_portal_backend.Service.FrontendService;
+import com.jfsd.exit_portal_backend.Model.Courses;
+
 @RestController
 @RequestMapping("/api/v1/frontend")
 public class FrontendController {
@@ -51,6 +55,22 @@ public ResponseEntity<List<StudentGrade>> getCategoryDetails(@PathVariable("cate
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
+    @GetMapping("/getallcourses/{categoryName}")
+    public ResponseEntity<List<Courses>> getAllCourses(@PathVariable("categoryName") String categoryName) {
+        List<Courses> allCourses = frontendService.getAllCoursesByCategory(categoryName);
+        return new ResponseEntity<>(allCourses, HttpStatus.OK);
+    }
 
+
+@PostMapping("/generatereport")
+public ResponseEntity<StudentCourseReportDTO> generateStudentReport(@RequestBody Map<String, String> requestBody) {
+    String universityId = requestBody.get("universityId");
+    if (universityId == null) {
+        return ResponseEntity.badRequest().body(null);
+    }
+
+    StudentCourseReportDTO reportDTO = frontendService.generateStudentReport(universityId);
+    return ResponseEntity.ok(reportDTO);
+}
 
 }

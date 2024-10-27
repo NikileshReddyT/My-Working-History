@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import './Styles/popupdetails.css';
 
-const CategoryDetailsPopup = ({ categoryName, studentId, onClose }) => {
-  const [category, setCategory] = useState(null);
+const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose }) => {
+  const [category, setCategory] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
 
   useEffect(() => {
     const encodedCategoryName = encodeURIComponent(categoryName);
@@ -12,10 +13,24 @@ const CategoryDetailsPopup = ({ categoryName, studentId, onClose }) => {
         `http://localhost:8080/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
       )
       .then((response) => {
-        setCategory(response.data);
-        console.log(response.data);
+        setCategory(response.data || []);
+      });
+
+    axios
+      .get(
+        `http://localhost:8080/api/v1/frontend/getallcourses/${encodedCategoryName}`
+      )
+      .then((response) => {
+        setAllCourses(response.data || []);
       });
   }, [categoryName, studentId]);
+
+  const filterAvailableCourses = () => {
+    const completedCourseCodes = category.map(course => course.courseCode);
+    return allCourses.filter(course => !completedCourseCodes.includes(course.courseCode));
+  };
+
+  const availableCourses = filterAvailableCourses();
 
   return (
     <div className="popup-overlay" onClick={onClose}>
@@ -23,8 +38,11 @@ const CategoryDetailsPopup = ({ categoryName, studentId, onClose }) => {
         <div className="popup-content">
           <button className="close-button" onClick={onClose}>X</button>
           <h3>{categoryName} - Course Details</h3>
-          {category ? (
-            category.length > 0 ? ( // Check if there are courses
+          {category.length > 0 ? (
+            <>
+              {pendingCourses > 0 && (
+                <p>You need to complete {pendingCourses} more courses in this category.</p>
+              )}
               <table className="course-table">
                 <thead>
                   <tr>
@@ -51,9 +69,31 @@ const CategoryDetailsPopup = ({ categoryName, studentId, onClose }) => {
                   ))}
                 </tbody>
               </table>
-            ) : (
-              <p className="no-courses-registered">No courses registered</p> // Display message if no courses
-            )
+              {pendingCourses > 0 && availableCourses.length > 0 && (
+                <div>
+                  <h4>Other Courses Available for Registration</h4>
+                  <p>You have {pendingCourses} pending courses. Select from the list below to complete them:</p>
+                  <table className="course-table">
+                    <thead>
+                      <tr>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>Course Credits</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {availableCourses.map((course, index) => (
+                        <tr key={index}>
+                          <td>{course.courseCode}</td>
+                          <td>{course.courseTitle}</td>
+                          <td>{course.courseCredits}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </>
           ) : (
             <p>Loading...</p>
           )}

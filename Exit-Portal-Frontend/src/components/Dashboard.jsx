@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true); // New loading state
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [pendingCourses, setPendingCourses] = useState(null);
 
   useEffect(() => {
     // Retrieve student ID from local storage
@@ -44,8 +45,9 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  const handleShowPopup = (category) => {
+  const handleShowPopup = (category, pendingCourses) => {
     setSelectedCategory(category);
+    setPendingCourses(pendingCourses);
     console.log(category);
     setPopupVisible(true);
   };
@@ -78,6 +80,7 @@ const Dashboard = () => {
         <CategoryDetailsPopup
           categoryName={selectedCategory.categoryName}
           studentId={localStorage.getItem('studentId')}
+          pendingCourses={pendingCourses}
           onClose={handleClosePopup}
         />
       )}
