@@ -34,33 +34,43 @@ public class FrontendService {
     @Autowired
     private StudentCredentialsRepository studentCredentialsRepository;
 
-
     public List<StudentCategoryProgress> getStudentCategoryProgress(String request) {
         return studentCategoryProgressRepository.findByUniversityId(request);
     }
 
+    // Updated method to check both universityId and password
+    public Login findStudentByUniversityId(String universityId, String password) {
+        // Fetch student credentials by universityId
+        Optional<StudentCredentials> studentCredentialsOpt = studentCredentialsRepository.findByStudentId(universityId);
+        
+        if (!studentCredentialsOpt.isPresent()) {
+            // Handle case where student is not found
+            System.out.println("No student found with university ID: " + universityId);
+            return null; // Or throw an exception
+        }
 
-    public Login findStudentByUniversityId(String universityId) {
-        // Assuming studentRepository interacts with your database
-        Optional<StudentCredentials> studentCredentials = studentCredentialsRepository.findByStudentId(universityId);
+        StudentCredentials studentCredentials = studentCredentialsOpt.get();
+
+        // Check if the password matches
+        if (!studentCredentials.getPassword().equals(password)) {
+            // Handle incorrect password scenario
+            System.out.println("Incorrect password for university ID: " + universityId);
+            return null; // Or throw an exception
+        }
+
+        // Create Login object if authentication is successful
         Login login = new Login();
-        login.setUniversityId(studentCredentials.get().getStudentId());
+        login.setUniversityId(studentCredentials.getStudentId());
         return login;
     }
 
-      public List<StudentGrade> getCoursesByCategory(String universityId, String category) {
+    public List<StudentGrade> getCoursesByCategory(String universityId, String category) {
         return studentGradeRepository.findByUniversityIdAndCategory(universityId, category);
     }
 
     public List<Courses> getAllCoursesByCategory(String categoryName) {
         return coursesRepository.findAllByCategory(categoryName);
     }
-
-
-
-
-
-    
 
     public StudentCourseReportDTO generateStudentReport(String universityId) {
         // Retrieve all category progress for the student
@@ -119,8 +129,4 @@ public class FrontendService {
     
         return reportDTO;
     }
-
-
-
-
 }

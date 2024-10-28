@@ -49,10 +49,4 @@ public class StudentCredentialsService {
     public Optional<StudentCredentials> findByStudentId(String studentId) {
         return studentCredentialsRepository.findByStudentId(studentId);
     }
-
-    // Method to validate login credentials
-    public boolean validateLogin(String studentId, String password) {
-        Optional<StudentCredentials> studentCredentials = studentCredentialsRepository.findByStudentId(studentId);
-        return studentCredentials.isPresent() && studentCredentials.get().getPassword().equals(password);
-    }
 }
