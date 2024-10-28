@@ -8,6 +8,6 @@ import lombok.Setter;
 public class Login {
 
     private String universityId;
-
+    private String password;
 
 }
