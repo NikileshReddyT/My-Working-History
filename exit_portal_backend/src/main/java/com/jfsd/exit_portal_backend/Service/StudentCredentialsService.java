@@ -3,9 +3,9 @@ package com.jfsd.exit_portal_backend.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class StudentCredentialsService {
 
     // Method to validate login credentials
     public boolean validateLogin(String studentId, String password) {
-        Optional<StudentCredentials> studentCredentials = findByStudentId(studentId);
+        Optional<StudentCredentials> studentCredentials = studentCredentialsRepository.findByStudentId(studentId);
         return studentCredentials.isPresent() && studentCredentials.get().getPassword().equals(password);
     }
 }

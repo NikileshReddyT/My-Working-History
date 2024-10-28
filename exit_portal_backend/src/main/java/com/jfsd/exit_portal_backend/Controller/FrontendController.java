@@ -17,7 +17,6 @@ import com.jfsd.exit_portal_backend.Model.Courses;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.RequestBodies.Login;
-import com.jfsd.exit_portal_backend.RequestBodies.Student;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
 import com.jfsd.exit_portal_backend.Service.FrontendService;
 
@@ -30,14 +29,14 @@ public class FrontendController {
 
     @PostMapping("/getdata")
     public ResponseEntity<List<StudentCategoryProgress>> getdata(@RequestBody Login request) {
-        System.out.println(request.getUniversityid());
-        return ResponseEntity.ok(frontendService.getStudentCategoryProgress(request.getUniversityid()));
+        System.out.println(request.getUniversityId());
+        return ResponseEntity.ok(frontendService.getStudentCategoryProgress(request.getUniversityId()));
 
     }
 
     @PostMapping("/login")
     public ResponseEntity<Login> login(@RequestBody Login loginRequest) {
-         Login login = frontendService.findStudentByUniversityId(loginRequest.getUniversityid());
+         Login login = frontendService.findStudentByUniversityId(loginRequest.getUniversityId());
         if (login != null) {
             return ResponseEntity.ok(login); // Return student data if found
         } else {

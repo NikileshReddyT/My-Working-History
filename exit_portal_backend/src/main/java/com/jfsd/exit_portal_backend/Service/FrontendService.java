@@ -2,6 +2,7 @@ package com.jfsd.exit_portal_backend.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +42,9 @@ public class FrontendService {
 
     public Login findStudentByUniversityId(String universityId) {
         // Assuming studentRepository interacts with your database
-        StudentCredentials studentCredentials = studentCredentialsRepository.findByStudentId(universityId);
+        Optional<StudentCredentials> studentCredentials = studentCredentialsRepository.findByStudentId(universityId);
         Login login = new Login();
-        login.setUniversityId(studentCredentials.getStudentId());
+        login.setUniversityId(studentCredentials.get().getStudentId());
         return login;
     }
 
