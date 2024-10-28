@@ -21,10 +21,10 @@
   }
   
   .summary {
-    padding: 5px 10px;
-    width: 50%;
+    padding: 20px 40px;
+    width: max-content;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     /* gap: 20px; */
     justify-content: center;

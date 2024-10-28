@@ -3,7 +3,7 @@
 
 /* Header and Footer Styles */
 header, footer {
-  background-color: rgba(128, 0, 0, 0.7);
+  background-color: rgba(107, 15, 15, 0.862);
   color: #fff;
   padding: 1em;
   text-align: center;
@@ -14,7 +14,7 @@ header, footer {
 }
 
 header {
-  background-color: rgba(128, 0, 0, 0.7);
+  background-color: rgba(77, 14, 14, 0.881);
   color: #fff;
   padding: 1em;
   text-align: center;
@@ -208,17 +208,41 @@ button:hover {
 @media (max-width: 1024px) {
   .portal-details {
     max-height: 400px; /* Set a maximum height to trigger scrolling */
-    overflow-y: auto; /* Enable vertical scrolling for large tablets */
+    overflow-y: scroll; /* Enable vertical scrolling */
   }
-
+  /* Custom scrollbar styles for Webkit browsers (Chrome, Safari, newer Edge) */
+  .portal-details::-webkit-scrollbar {
+    width: 8px;
+  }
+  .portal-details::-webkit-scrollbar-track {
+    background: rgba(128, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  .portal-details::-webkit-scrollbar-thumb {
+    background: rgba(128, 0, 0, 0.5);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  .portal-details::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 0, 0, 0.7);
+  }
+  /* Custom scrollbar for Firefox */
+  .portal-details {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 0, 0, 0.5) rgba(128, 0, 0, 0.1);
+  }
+  /* Edge-specific rule to hide scrollbar */
+  @supports (-ms-overflow-style: none) {
+    .portal-details {
+      -ms-overflow-style: none; /* Hide scrollbar in Edge */
+    }
+  }
   .portal-details h3 {
     font-size: 1.4rem; /* Slightly smaller font size for large tablets */
   }
-
   .portal-details p {
     font-size: 0.95rem; /* Slightly smaller font size for large tablets */
   }
-
   header {
     font-size: 1.1rem; /* Slightly smaller font size for large tablets */
   }
@@ -253,9 +277,35 @@ button:hover {
 
   .portal-details {
     max-height: 300px; /* Set a maximum height to trigger scrolling */
-    overflow-y: auto; /* Enable vertical scrolling for medium screens */
+    overflow-y: scroll; /* Enable vertical scrolling */
   }
-
+  /* Custom scrollbar styles for Webkit browsers (Chrome, Safari, newer Edge) */
+  .portal-details::-webkit-scrollbar {
+    width: 8px;
+  }
+  .portal-details::-webkit-scrollbar-track {
+    background: rgba(128, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  .portal-details::-webkit-scrollbar-thumb {
+    background: rgba(128, 0, 0, 0.5);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  .portal-details::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 0, 0, 0.7);
+  }
+  /* Custom scrollbar for Firefox */
+  .portal-details {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 0, 0, 0.5) rgba(128, 0, 0, 0.1);
+  }
+  /* Edge-specific rule to hide scrollbar */
+  @supports (-ms-overflow-style: none) {
+    .portal-details {
+      -ms-overflow-style: none; /* Hide scrollbar in Edge */
+    }
+  }
   header {
     font-size: 12px; /* Smaller font size for medium screens */
   }
@@ -281,9 +331,35 @@ button:hover {
 
   .portal-details {
     max-height: 200px; /* Further reduce height for smaller screens */
-    overflow-y: auto; /* Enable vertical scrolling for small screens */
+    overflow-y: scroll; /* Enable vertical scrolling */
   }
-
+  /* Custom scrollbar styles for Webkit browsers (Chrome, Safari, newer Edge) */
+  .portal-details::-webkit-scrollbar {
+    width: 8px;
+  }
+  .portal-details::-webkit-scrollbar-track {
+    background: rgba(128, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  .portal-details::-webkit-scrollbar-thumb {
+    background: rgba(128, 0, 0, 0.5);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  .portal-details::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 0, 0, 0.7);
+  }
+  /* Custom scrollbar for Firefox */
+  .portal-details {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 0, 0, 0.5) rgba(128, 0, 0, 0.1);
+  }
+  /* Edge-specific rule to hide scrollbar */
+  @supports (-ms-overflow-style: none) {
+    .portal-details {
+      -ms-overflow-style: none; /* Hide scrollbar in Edge */
+    }
+  }
   .portal-details h3 {
     font-size: 1.1rem; /* Even smaller font size for small screens */
   }

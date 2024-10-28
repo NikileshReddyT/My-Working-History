@@ -72,7 +72,7 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard animate-fade-in'>
-      <h2>Student Dashboard</h2>
+      <h2 >Student Dashboard</h2>
       <CustomNavbar data={data} />
       <Summary data={data} StudentId={localStorage.getItem('studentId')} />
       <CategoryList categories={data} onShowPopup={handleShowPopup} />
