@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Login {
 
-    private String universityid;
+    private String universityId;
 
 
 }

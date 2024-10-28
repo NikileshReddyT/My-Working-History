@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jfsd.exit_portal_backend.RequestBodies.CategoryCoursesDTO;
-import com.jfsd.exit_portal_backend.RequestBodies.Student;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.Model.Courses;
+import com.jfsd.exit_portal_backend.Model.StudentCredentials;
 import com.jfsd.exit_portal_backend.Repository.StudentCategoryProgressRepository;
+import com.jfsd.exit_portal_backend.Repository.StudentCredentialsRepository;
 import com.jfsd.exit_portal_backend.Repository.StudentGradeRepository;
 import com.jfsd.exit_portal_backend.Repository.CoursesRepository;
+import com.jfsd.exit_portal_backend.RequestBodies.Login;
 
 @Service
 public class FrontendService {
@@ -28,19 +30,21 @@ public class FrontendService {
     @Autowired
     private CoursesRepository coursesRepository;
 
+    @Autowired
+    private StudentCredentialsRepository studentCredentialsRepository;
+
 
     public List<StudentCategoryProgress> getStudentCategoryProgress(String request) {
         return studentCategoryProgressRepository.findByUniversityId(request);
     }
 
 
-    public Student findStudentByUniversityId(String universityId) {
+    public Login findStudentByUniversityId(String universityId) {
         // Assuming studentRepository interacts with your database
-        StudentCategoryProgress studentCategoryProgress = studentCategoryProgressRepository.findFirstByUniversityId(universityId);
-        Student student = new Student();
-        student.setUniversityid(studentCategoryProgress.getUniversityId());
-        student.setName(studentCategoryProgress.getStudentName());
-        return student;
+        StudentCredentials studentCredentials = studentCredentialsRepository.findByStudentId(universityId);
+        Login login = new Login();
+        login.setUniversityId(studentCredentials.getStudentId());
+        return login;
     }
 
       public List<StudentGrade> getCoursesByCategory(String universityId, String category) {

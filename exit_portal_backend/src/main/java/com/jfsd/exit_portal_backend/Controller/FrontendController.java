@@ -7,20 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jfsd.exit_portal_backend.Model.Courses;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.RequestBodies.Login;
 import com.jfsd.exit_portal_backend.RequestBodies.Student;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
 import com.jfsd.exit_portal_backend.Service.FrontendService;
-import com.jfsd.exit_portal_backend.Model.Courses;
 
 @RestController
 @RequestMapping("/api/v1/frontend")
@@ -37,10 +36,10 @@ public class FrontendController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Student> login(@RequestBody Login loginRequest) {
-        Student student = frontendService.findStudentByUniversityId(loginRequest.getUniversityid());
-        if (student != null) {
-            return ResponseEntity.ok(student); // Return student data if found
+    public ResponseEntity<Login> login(@RequestBody Login loginRequest) {
+         Login login = frontendService.findStudentByUniversityId(loginRequest.getUniversityid());
+        if (login != null) {
+            return ResponseEntity.ok(login); // Return student data if found
         } else {
             return ResponseEntity.status(404).body(null); // Return 404 if student not found
         }
