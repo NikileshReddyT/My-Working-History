@@ -70,7 +70,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
                 </tbody>
               </table>
               {pendingCourses > 0 && availableCourses.length > 0 && (
-                <div>
+                <>
                   <h4>Other Courses Available for Registration</h4>
                   <p>You have {pendingCourses} pending courses. Select from the list below to complete them:</p>
                   <table className="course-table">
@@ -91,7 +91,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
                       ))}
                     </tbody>
                   </table>
-                </div>
+                  </>
               )}
             </>
           ) : (
