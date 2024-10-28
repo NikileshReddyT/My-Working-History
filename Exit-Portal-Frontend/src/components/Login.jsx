@@ -8,6 +8,7 @@ import logo from '../images/Frame 1 NR.png'; // Update with the path to your log
 
 const Login = () => {
   const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,17 +21,24 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
         universityid: id,
+        password: password
       });
 
-      if (response.data && response.data.universityid) {
+      if (response.data && response.data.universityId) {
         // Store only the student ID in local storage
         localStorage.setItem('studentId', response.data.universityid);
         navigate('/dashboard');
+      } else if (response.data && response.data.error === 'Incorrect password') {
+        setError('Incorrect password.');
       } else {
         setError('Invalid response from server.');
       }
     } catch (err) {
-      setError('Invalid Student ID.');
+      if (err.response && err.response.data && err.response.data.error === 'Incorrect password') {
+        setError('Incorrect password.');
+      } else {
+        setError('Invalid Student ID.');
+      }
     } finally {
       setLoading(false);
     }
@@ -75,6 +83,13 @@ const Login = () => {
               placeholder="Enter Student ID" // Add placeholder for clarity
               value={id}
               onChange={(e) => setId(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Enter Password" // Add placeholder for clarity
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <button type="submit" disabled={loading}>
