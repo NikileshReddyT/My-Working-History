@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jfsd.exit_portal_backend.Model.Courses;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
+import com.jfsd.exit_portal_backend.RequestBodies.InvalidPasswordException;
 import com.jfsd.exit_portal_backend.RequestBodies.Login;
 import com.jfsd.exit_portal_backend.RequestBodies.Student;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
+import com.jfsd.exit_portal_backend.RequestBodies.UserNotFoundException;
 import com.jfsd.exit_portal_backend.Service.FrontendService;
 
 @RestController
@@ -40,10 +42,15 @@ public class FrontendController {
             System.out.println(loginRequest.getUniversityId() + " " + loginRequest.getPassword());
             Student studentData = frontendService.authenticateStudent(loginRequest.getUniversityId(), loginRequest.getPassword());
             return ResponseEntity.ok(studentData);
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Incorrect password. Please try again."));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found. Please check your university ID."));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "An unexpected error occurred."));
         }
     }
+    
 
     @GetMapping("/getcategorydetails/{categoryName}/{studentId}")
     public ResponseEntity<List<StudentGrade>> getCategoryDetails(@PathVariable("categoryName") String categoryName, @PathVariable("studentId") String studentId) {

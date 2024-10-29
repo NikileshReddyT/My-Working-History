@@ -19,27 +19,34 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
-        universityId: id,
-        password: password
-      });
+        const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
+            universityId: id,
+            password: password
+        });
 
-      if (response.data && response.data.universityid) {
-        // Clear all data in local storage before storing the student ID
-        localStorage.clear();
-        localStorage.setItem('studentId', response.data.universityid);
-        navigate('/dashboard');
-      } else if (response.data && response.data.error) {
-        setError(response.data.error);
-      } else {
-        setError('Invalid response from server.');
-      }
+        if (response.data && response.data.universityid) {
+            localStorage.clear();
+            localStorage.setItem('studentId', response.data.universityid);
+            navigate('/dashboard');
+        } else {
+            setError('Unexpected response from server.');
+        }
     } catch (err) {
-      setError('An error occurred while processing your request.');
+        if (err.response) {
+            if (err.response.status === 401) {
+                setError('Incorrect password. Please enter the correct password.');
+            } else if (err.response.status === 404) {
+                setError('USER NOT FOUND.');
+            } else {
+                setError('An unexpected error occurred. Please try again later.');
+            }
+        } else {
+            setError('Network error. Please check your internet connection.');
+        }
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   return (
     <div>

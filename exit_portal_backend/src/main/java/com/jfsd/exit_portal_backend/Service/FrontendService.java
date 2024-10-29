@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jfsd.exit_portal_backend.RequestBodies.CategoryCoursesDTO;
+import com.jfsd.exit_portal_backend.RequestBodies.InvalidPasswordException;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
+import com.jfsd.exit_portal_backend.RequestBodies.UserNotFoundException;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.Model.Courses;
@@ -38,22 +40,19 @@ public class FrontendService {
     }
 
     // Updated method to check both universityId and password
-  public Student authenticateStudent(String studentId, String password) throws Exception {
-        // Check if student exists in the database by studentId
+    public Student authenticateStudent(String studentId, String password) throws Exception {
         StudentCredentials studentCredentials = studentCredentialsRepository.findByStudentId(studentId)
-                .orElseThrow(() -> new Exception("Invalid Student ID."));
-
-        // Check if the password is correct
+                .orElseThrow(() -> new UserNotFoundException("User not found."));
+    
         if (!studentCredentials.getPassword().equals(password)) {
-            throw new Exception("Incorrect password.");
+            throw new InvalidPasswordException("Incorrect password.");
         }
-
-        // Create and return Student DTO with necessary data
+    
         Student studentData = new Student();
         studentData.setUniversityid(studentCredentials.getStudentId());
         return studentData;
     }
-
+    
 
 
 

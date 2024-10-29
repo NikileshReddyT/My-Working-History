@@ -23,12 +23,14 @@ const Dashboard = () => {
     if (storedStudentId) {
       if (storedStudentData) {
         setData(JSON.parse(storedStudentData));
+        console.log("Data from local storage:");
         setLoading(false);
       } else {
         axios.post('http://localhost:8080/api/v1/frontend/getdata', { universityid: storedStudentId })
           .then(response => {
             if (response.data) {
               setData(response.data);
+              console.log("Data from backend:");
               localStorage.setItem('studentData', JSON.stringify(response.data));
             }
             setLoading(false);

@@ -69,7 +69,11 @@
     color: white;
   }
 }
-
+@media (max-width: 1000px){
+  .portal-title{
+    display: none;
+  }
+}
 
 /* Media Queries */
 
@@ -140,6 +144,7 @@
   .eligibility-container {
     width: 100%; /* Full width */
     text-align: left;
+    font-size: small;
   }
 
   .photo-div {

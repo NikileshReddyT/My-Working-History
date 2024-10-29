@@ -2,7 +2,8 @@
 /*  */
 
 /* Header and Footer Styles */
-header, footer {
+header,
+footer {
   background-color: rgba(107, 15, 15, 0.862);
   color: #fff;
   padding: 1em;
@@ -50,7 +51,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: rgba(223, 218, 175, 0.31);
+  background: rgba(223, 218, 175, 0.263);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -59,25 +60,29 @@ footer {
   max-height: calc(100vh - 120px); /* Full height minus header and footer */
   position: relative;
   gap: 2rem;
-  
+
   animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Fade-in Animation */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Background Image Overlay */
 .login::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../images/photo_2024-10-26_22-35-49.jpg');
+  background-image: url("../../images/photo_2024-10-26_22-35-49.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -139,7 +144,8 @@ form {
   gap: 1rem;
 }
 
-input[type="text"],input[type="password"] {
+input[type="text"],
+input[type="password"] {
   padding: 12px 15px;
   border: 2px solid #ced4da;
   border-radius: 5px;
@@ -147,7 +153,8 @@ input[type="text"],input[type="password"] {
   transition: border-color 0.3s ease;
 }
 
-input[type="text"]:focus,input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border-color: #800000;
   outline: none;
 }
@@ -181,14 +188,19 @@ button:hover {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Error Message */
 .error-message {
   color: red;
-  font-size: 0.9rem;
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 /* Forgot Password Link */
@@ -256,13 +268,12 @@ button:hover {
     align-items: center;
   }
 
-
   .portal-details {
     width: 100%;
     max-width: 100%;
     margin-bottom: 1.5rem;
   }
-  .login-container{
+  .login-container {
     width: 60%;
     max-width: 100%;
   }
@@ -312,7 +323,8 @@ button:hover {
 }
 
 @media (max-width: 480px) {
-  header, footer {
+  header,
+  footer {
     font-size: 12px;
   }
 
@@ -320,11 +332,10 @@ button:hover {
     font-size: 20px;
   }
 
-  
   button {
     padding: 10px;
   }
-  .login-container{
+  .login-container {
     width: 90%;
     max-width: 100%;
   }
@@ -369,6 +380,6 @@ button:hover {
   }
 
   header {
-    font-size: 11px;/* Even smaller font size for small screens */
+    font-size: 11px; /* Even smaller font size for small screens */
   }
 }

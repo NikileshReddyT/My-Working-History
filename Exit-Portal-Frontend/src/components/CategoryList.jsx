@@ -1,7 +1,6 @@
 import React from "react";
 import "./Styles/categorylist.css";
 const CategoryList = ({ categories, onShowPopup }) => {
-  console.log(categories);
 
   if (categories == null) {
     return <h1>No Data Found</h1>;
