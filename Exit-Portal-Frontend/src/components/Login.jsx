@@ -73,8 +73,7 @@ const Login = () => {
         </p>
         <p className="left-aligned">
           By logging into this portal, you can easily access your academic records, check your credit status, 
-          and generate reports necessary for graduation requirements. Please log in using your Student ID and follow 
-          the instructions to receive an OTP for verification.
+          and generate reports necessary for graduation requirements. Please log in using your Student ID and 6 digit pin sent to your college email.
         </p>
       </div>
       </div>
@@ -91,7 +90,7 @@ const Login = () => {
             />
             <input
               type="password"
-              placeholder="Enter Password" // Add placeholder for clarity
+              placeholder="Enter 6 digit pin" // Add placeholder for clarity
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
