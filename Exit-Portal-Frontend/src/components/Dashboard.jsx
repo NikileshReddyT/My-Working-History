@@ -11,30 +11,27 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
   const [popupVisible, setPopupVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [pendingCourses, setPendingCourses] = useState(null);
 
   useEffect(() => {
-    // Retrieve student ID from local storage
     const storedStudentId = localStorage.getItem('studentId');
     const storedStudentData = localStorage.getItem('studentData');
 
     if (storedStudentId) {
       if (storedStudentData) {
-        // Use existing data if available
         setData(JSON.parse(storedStudentData));
         setLoading(false);
       } else {
-        // Fetch data from the backend using the student ID
         axios.post('http://localhost:8080/api/v1/frontend/getdata', { universityid: storedStudentId })
           .then(response => {
             if (response.data) {
               setData(response.data);
               localStorage.setItem('studentData', JSON.stringify(response.data));
-              setLoading(false); // Set loading to false once data is fetched
             }
+            setLoading(false);
           })
           .catch(() => {
             navigate('/');
@@ -48,7 +45,6 @@ const Dashboard = () => {
   const handleShowPopup = (category, pendingCourses) => {
     setSelectedCategory(category);
     setPendingCourses(pendingCourses);
-    console.log(category);
     setPopupVisible(true);
   };
 
@@ -63,16 +59,17 @@ const Dashboard = () => {
         <div className='loading-spinner'>{}</div>
         Loading...
       </>
-    ); // Show loading spinner
+    );
   }
 
-  if (!data) {
+  // Check for no data, empty array, or null
+  if (!data || (Array.isArray(data) && data.length === 0)) {
     return <h1>No Data Found</h1>;
   }
 
   return (
     <div className='dashboard animate-fade-in'>
-      <h2 >Student Dashboard</h2>
+      <h2>Student Dashboard</h2>
       <CustomNavbar data={data} />
       <Summary data={data} StudentId={localStorage.getItem('studentId')} />
       <CategoryList categories={data} onShowPopup={handleShowPopup} />

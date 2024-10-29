@@ -17,6 +17,7 @@ import com.jfsd.exit_portal_backend.Model.Courses;
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
 import com.jfsd.exit_portal_backend.Model.StudentGrade;
 import com.jfsd.exit_portal_backend.RequestBodies.Login;
+import com.jfsd.exit_portal_backend.RequestBodies.Student;
 import com.jfsd.exit_portal_backend.RequestBodies.StudentCourseReportDTO;
 import com.jfsd.exit_portal_backend.Service.FrontendService;
 
@@ -28,19 +29,19 @@ public class FrontendController {
     private FrontendService frontendService;
 
     @PostMapping("/getdata")
-    public ResponseEntity<List<StudentCategoryProgress>> getdata(@RequestBody Login request) {
-        System.out.println(request.getUniversityId());
-        return ResponseEntity.ok(frontendService.getStudentCategoryProgress(request.getUniversityId()));
+    public ResponseEntity<List<StudentCategoryProgress>> getdata(@RequestBody Student request) {
+        System.out.println(request.getUniversityid());
+        return ResponseEntity.ok(frontendService.getStudentCategoryProgress(request.getUniversityid()));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Login> login(@RequestBody Login loginRequest) {
-        // Update this line to use the new service method which requires both universityId and password
-        Login login = frontendService.findStudentByUniversityId(loginRequest.getUniversityId(), loginRequest.getPassword());
-        if (login != null) {
-            return ResponseEntity.ok(login); // Return student data if found
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // Return 401 if authentication fails
+    public ResponseEntity<?> login(@RequestBody Login loginRequest) {
+        try {
+            System.out.println(loginRequest.getUniversityId() + " " + loginRequest.getPassword());
+            Student studentData = frontendService.authenticateStudent(loginRequest.getUniversityId(), loginRequest.getPassword());
+            return ResponseEntity.ok(studentData);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 

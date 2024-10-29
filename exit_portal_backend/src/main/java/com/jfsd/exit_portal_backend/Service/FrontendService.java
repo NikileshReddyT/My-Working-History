@@ -2,7 +2,6 @@ package com.jfsd.exit_portal_backend.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import com.jfsd.exit_portal_backend.Repository.StudentCategoryProgressRepository
 import com.jfsd.exit_portal_backend.Repository.StudentCredentialsRepository;
 import com.jfsd.exit_portal_backend.Repository.StudentGradeRepository;
 import com.jfsd.exit_portal_backend.Repository.CoursesRepository;
-import com.jfsd.exit_portal_backend.RequestBodies.Login;
+import com.jfsd.exit_portal_backend.RequestBodies.Student;
 
 @Service
 public class FrontendService {
@@ -39,31 +38,30 @@ public class FrontendService {
     }
 
     // Updated method to check both universityId and password
-    public Login findStudentByUniversityId(String universityId, String password) {
-        // Fetch student credentials by universityId
-        Optional<StudentCredentials> studentCredentialsOpt = studentCredentialsRepository.findByStudentId(universityId);
-        
-        if (!studentCredentialsOpt.isPresent()) {
-            // Handle case where student is not found
-            System.out.println("No student found with university ID: " + universityId);
-            return null; // Or throw an exception
-        }
+  public Student authenticateStudent(String studentId, String password) throws Exception {
+        // Check if student exists in the database by studentId
+        StudentCredentials studentCredentials = studentCredentialsRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new Exception("Invalid Student ID."));
 
-        StudentCredentials studentCredentials = studentCredentialsOpt.get();
-
-        // Check if the password matches
+        // Check if the password is correct
         if (!studentCredentials.getPassword().equals(password)) {
-            // Handle incorrect password scenario
-            System.out.println("Incorrect password for university ID: " + universityId);
-            return null; // Or throw an exception
+            throw new Exception("Incorrect password.");
         }
 
-        // Create Login object if authentication is successful
-        Login login = new Login();
-        login.setUniversityId(studentCredentials.getStudentId());
-        return login;
+        // Create and return Student DTO with necessary data
+        Student studentData = new Student();
+        studentData.setUniversityid(studentCredentials.getStudentId());
+        return studentData;
     }
 
+
+
+
+
+
+
+
+    
     public List<StudentGrade> getCoursesByCategory(String universityId, String category) {
         return studentGradeRepository.findByUniversityIdAndCategory(universityId, category);
     }

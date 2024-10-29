@@ -20,25 +20,22 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
-        universityid: id,
+        universityId: id,
         password: password
       });
 
-      if (response.data && response.data.universityId) {
-        // Store only the student ID in local storage
+      if (response.data && response.data.universityid) {
+        // Clear all data in local storage before storing the student ID
+        localStorage.clear();
         localStorage.setItem('studentId', response.data.universityid);
         navigate('/dashboard');
-      } else if (response.data && response.data.error === 'Incorrect password') {
-        setError('Incorrect password.');
+      } else if (response.data && response.data.error) {
+        setError(response.data.error);
       } else {
         setError('Invalid response from server.');
       }
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error === 'Incorrect password') {
-        setError('Incorrect password.');
-      } else {
-        setError('Invalid Student ID.');
-      }
+      setError('An error occurred while processing your request.');
     } finally {
       setLoading(false);
     }
