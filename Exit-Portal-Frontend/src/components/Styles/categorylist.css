@@ -29,6 +29,7 @@
 
 .categories-table td:first-child {
   text-align: left;
+  width: 28%;
 }
 
 .categories-table tr:nth-child(even) {

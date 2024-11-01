@@ -5,7 +5,7 @@ const Footer = () => {
     <div>
         <footer>
       <p>© 2024 KL Deemed to be University. All rights reserved.</p>
-      <p>Developed by Nikilesh Reddy T @ CSE-Regular</p>
+      <p>Developed by <span style={{ fontWeight: 'bold' }}>Nikilesh Reddy T & Sai Priya</span> @ CSE-Regular</p>
     </footer>
     </div>
   );

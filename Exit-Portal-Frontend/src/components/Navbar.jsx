@@ -9,6 +9,7 @@ const CustomNavbar = ({ data }) => {
     console.error("Student data is not defined!");
     return null;
   }
+  console.log(data);
 
   const { universityId, studentName } = data[0];
   // Use a dummy photo if none is provided
@@ -21,6 +22,16 @@ const CustomNavbar = ({ data }) => {
     navigate('/');
   };
 
+  // Determine Certificate Eligibility
+  const isCertificateEligible = data.every(category => 
+    category.completedCourses >= category.minRequiredCourses
+  );
+
+  // Determine Specialization Eligibility
+  const isSpecializationCompleted = data.slice(5, 10).every(category => 
+    category.completedCourses >= category.minRequiredCourses
+  );
+
   return (
     <nav className='custom-navbar'>
       <div className='student-details'>
@@ -30,18 +41,18 @@ const CustomNavbar = ({ data }) => {
         <div className='details-container'>
           <p>ID: {universityId || "Unknown ID"}</p>
           <p>{studentName || "Unknown Name"}</p>
-          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
-      <h2 className="portal-title">Exit Requirement Portal</h2>
+{/* <h2 className="portal-title">Exit Requirement Portal</h2> */}
       <div className='eligibility-container'>
         <p>
-          <strong>Certificate Eligibility:</strong> Not Eligible
+          <strong>Certificate Eligibility:</strong> {isCertificateEligible ? "Eligible" : "Not Eligible"}
         </p>
         <p>
-          <strong>Specialization Eligibility:</strong> Not Completed
+          <strong>Specialization Status:</strong> {isSpecializationCompleted ? "Completed" : "Not Completed"}
         </p>
       </div>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
     </nav>
   );
 };
