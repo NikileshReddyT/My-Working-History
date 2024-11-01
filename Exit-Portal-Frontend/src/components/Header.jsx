@@ -6,7 +6,7 @@ const Header = () => {
     <div>
       <header>
         {/* <img src={KLlogo} alt='Logo' className='logo' /> */}
-        <h1>Exit Request Portal - KL University</h1>
+        <h1>Exit Requirement Portal - KL University</h1>
       </header>
     </div>
   );

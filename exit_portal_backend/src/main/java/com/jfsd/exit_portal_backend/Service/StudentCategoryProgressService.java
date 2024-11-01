@@ -26,22 +26,21 @@ public class StudentCategoryProgressService {
 
     @Transactional
     public void calculateAndUpdateProgress() {
-        // Get all unique students
+        // Fetch all grades, students, categories, and courses in one call
         List<StudentGrade> allGrades = studentGradeRepository.findAll();
-        Set<String> uniqueStudents = allGrades.stream()
-                .map(StudentGrade::getUniversityId)
-                .filter(Objects::nonNull)  // Ensure no null universityId
-                .collect(Collectors.toSet());
-    
-        // Get all categories
         List<Categories> allCategories = categoriesRepository.findAll();
+        Map<String, List<Courses>> coursesByCategory = coursesRepository.findAll().stream()
+                .collect(Collectors.groupingBy(course -> course.getCategory()));
+    
+        // Group grades by student (universityId)
+        Map<String, List<StudentGrade>> gradesByStudent = allGrades.stream()
+                .filter(grade -> grade.getUniversityId() != null) // Ensure no null universityId
+                .collect(Collectors.groupingBy(StudentGrade::getUniversityId));
     
         // Process each student
-        for (String universityId : uniqueStudents) {
-            // Get student's grades
-            List<StudentGrade> studentGrades = allGrades.stream()
-                    .filter(grade -> grade.getUniversityId().equals(universityId))
-                    .collect(Collectors.toList());
+        for (Map.Entry<String, List<StudentGrade>> entry : gradesByStudent.entrySet()) {
+            String universityId = entry.getKey();
+            List<StudentGrade> studentGrades = entry.getValue();
     
             if (studentGrades.isEmpty()) continue;
     
@@ -52,16 +51,15 @@ public class StudentCategoryProgressService {
     
             // Process each category
             for (Categories category : allCategories) {
-                // Fetch courses by category name
-                List<Courses> categoryCourses = coursesRepository.findByCategoryName(category.getCategoryName());
+                List<Courses> categoryCourses = coursesByCategory.getOrDefault(category.getCategoryName(), Collections.emptyList());
                 Set<String> categoryCourseCodes = categoryCourses.stream()
                         .map(Courses::getCourseCode)
                         .collect(Collectors.toSet());
     
-                // Calculate completed courses and credits for this category
+                // Filter student's completed courses within the category
                 List<StudentGrade> completedCourses = studentGrades.stream()
                         .filter(grade -> categoryCourseCodes.contains(grade.getCourseCode()))
-                        .filter(grade -> grade.getPromotion().equals("P")) // Only include if promotion is "P"
+                        .filter(grade -> "P".equals(grade.getPromotion())) // Only include if promotion is "P"
                         .collect(Collectors.toList());
     
                 // Calculate completed course count and credits sum
@@ -70,7 +68,7 @@ public class StudentCategoryProgressService {
                         .mapToDouble(StudentGrade::getCredits)
                         .sum();
     
-                // Create progress record
+                // Create and save progress record
                 StudentCategoryProgress progress = new StudentCategoryProgress(
                     universityId,
                     studentName,
@@ -85,6 +83,8 @@ public class StudentCategoryProgressService {
             }
         }
     }
+    
+    
     
     public List<StudentCategoryProgress> getStudentProgress(String universityId) {
         return progressRepository.findByUniversityId(universityId);

@@ -6,6 +6,13 @@ const CategoryList = ({ categories, onShowPopup }) => {
     return <h1>No Data Found</h1>;
   }
 
+  // Sort categories to render incomplete ones first
+  const sortedCategories = [...categories].sort((a, b) => {
+    const aIncomplete = a.completedCourses < a.minRequiredCourses || a.completedCredits < a.minRequiredCredits;
+    const bIncomplete = b.completedCourses < b.minRequiredCourses || b.completedCredits < b.minRequiredCredits;
+    return aIncomplete === bIncomplete ? 0 : aIncomplete ? -1 : 1;
+  });
+
   return (
     <div className='categories'>
       <h3 className="click-to-view-details">Click on the category to view details</h3>
@@ -23,7 +30,7 @@ const CategoryList = ({ categories, onShowPopup }) => {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category, index) => {
+            {sortedCategories.map((category, index) => {
               const pendingCourses = Math.max(0, category.minRequiredCourses - category.completedCourses);
               return (
                 <tr key={index} onClick={() => onShowPopup(category, pendingCourses)}>
