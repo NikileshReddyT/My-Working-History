@@ -5,7 +5,7 @@ import Summary from "./Summary";
 import CategoryDetailsPopup from "./CategoryDetailsPopup";
 import CustomNavbar from "./Navbar";
 import axios from "axios";
-import "./Styles/Dashboard.css"; // New CSS file for animations and styling
+import "./Styles/dashboard.css"; // New CSS file for animations and styling
 
 const Dashboard = () => {
   const navigate = useNavigate();
