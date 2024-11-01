@@ -20,7 +20,7 @@ const PdfDownloadButton = ({ studentId }) => {
       if (storedData) {
         setReportData(JSON.parse(storedData));
       } else {
-        const response = await axios.post("http://localhost:8080/api/v1/frontend/generatereport", {
+        const response = await axios.post("https://exit-portal-requirement-klu.vercel.app/api/v1/frontend/generatereport", {
           universityId: studentId
         });
         if (response.data) {

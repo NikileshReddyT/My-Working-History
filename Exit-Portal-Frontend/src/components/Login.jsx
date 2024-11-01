@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/frontend/login', {
+        const response = await axios.post('https://exit-portal-requirement-klu.vercel.app/api/v1/frontend/login', {
             universityId: id,
             password: password
         });
