@@ -10,7 +10,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
     const encodedCategoryName = encodeURIComponent(categoryName);
     axios
       .get(
-        `https://exit-portal-requirement-klu.vercel.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
+        `https://exit-portal-requirement-klu.onrender.com/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
       )
       .then((response) => {
         setCategory(response.data || []);
@@ -18,7 +18,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
 
     axios
       .get(
-        `https://exit-portal-requirement-klu.vercel.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
+        `https://exit-portal-requirement-klu.onrender.com/api/v1/frontend/getallcourses/${encodedCategoryName}`
       )
       .then((response) => {
         setAllCourses(response.data || []);
