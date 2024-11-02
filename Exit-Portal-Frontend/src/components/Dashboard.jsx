@@ -26,7 +26,7 @@ const Dashboard = () => {
         console.log("Data from local storage:");
         setLoading(false);
       } else {
-        axios.post('https://exit-portal-requirement-klu.onrender.com/api/v1/frontend/getdata', { universityid: storedStudentId })
+        axios.post('https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getdata', { universityid: storedStudentId })
           .then(response => {
             if (response.data) {
               setData(response.data);

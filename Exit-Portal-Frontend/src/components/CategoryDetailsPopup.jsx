@@ -10,7 +10,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
     const encodedCategoryName = encodeURIComponent(categoryName);
     axios
       .get(
-        `https://exit-portal-requirement-klu.onrender.com/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
+        `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
       )
       .then((response) => {
         setCategory(response.data || []);

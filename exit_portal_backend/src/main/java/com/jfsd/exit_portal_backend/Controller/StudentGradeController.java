@@ -21,13 +21,14 @@ public class StudentGradeController {
 
     // Upload CSV file
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<List<String>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            List<StudentGrade> grades = studentGradeService.uploadCSV(file);
-            return ResponseEntity.ok().body(grades);
+            List<String> messages = studentGradeService.uploadCSV(file);
+            return ResponseEntity.ok().body(messages);
         } catch (IOException e) {
             System.out.println(e);
-            return ResponseEntity.badRequest().body("Error processing file: " + e.getMessage());
+            List<String> errorMessages = List.of("Error processing file: " + e.getMessage());
+            return ResponseEntity.badRequest().body(errorMessages);
         }
     }
 

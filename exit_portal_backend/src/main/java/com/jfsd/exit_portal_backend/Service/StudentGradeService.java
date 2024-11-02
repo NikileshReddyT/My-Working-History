@@ -20,65 +20,87 @@ public class StudentGradeService {
     private StudentGradeRepository studentGradeRepository;
 
     // Upload CSV file
-    public List<StudentGrade> uploadCSV(MultipartFile file) throws IOException {
-        List<StudentGrade> studentGrades = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-            String line;
-            boolean firstLine = true;
-
-            while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    firstLine = false; // Skip the header
-                    continue;
-                }
-
-                String[] values = parseCsvLine(line);
-                StudentGrade grade = new StudentGrade();
-
-                if (values.length > 0) grade.setUniversityId(values[0].trim());
-                if (values.length > 1) grade.setStudentName(values[1].trim());
-                if (values.length > 2) grade.setStatus(values[2].trim());
-                if (values.length > 3) grade.setCourseCode(values[3].trim());
-                if (values.length > 4) grade.setCourseName(values[4].trim());
-
-                if (values.length > 5) {
-                    String gradeValue = values[5].trim();
-                    int indexOfParenthesis = gradeValue.indexOf('(');
-                    if (indexOfParenthesis != -1) {
-                        gradeValue = gradeValue.substring(0, indexOfParenthesis).trim();
+        // Upload CSV file
+        public List<String> uploadCSV(MultipartFile file) throws IOException {
+            List<String> messages = new ArrayList<>();
+            List<StudentGrade> studentGradesToSave = new ArrayList<>();
+    
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+                String line;
+                boolean firstLine = true;
+    
+                while ((line = br.readLine()) != null) {
+                    if (firstLine) {
+                        firstLine = false; // Skip the header
+                        continue;
                     }
-                    gradeValue = gradeValue.replace("\"", "");
-                    grade.setGrade(gradeValue);
-                }
-
-                if (values.length > 6) {
-                    try {
-                        grade.setGradePoint(Double.parseDouble(values[6].trim()));
-                    } catch (NumberFormatException e) {
-                        grade.setGradePoint(0.0);
+    
+                    String[] values = parseCsvLine(line);
+                    if (values.length < 5) continue; // Ensure required fields are present
+    
+                    String universityId = values[0].trim();
+                    String courseCode = values[3].trim();
+    
+                    // Check if this record already exists based on universityId and courseCode
+                    boolean exists = studentGradeRepository.existsByUniversityIdAndCourseCode(universityId, courseCode);
+                    if (exists) {
+                        messages.add("Grade record for University ID " + universityId + " and Course Code " + courseCode + " already exists. Skipping.");
+                        System.out.println("Grade record for University ID " + universityId + " and Course Code " + courseCode + " already exists. Skipping.");
+                        continue;
                     }
-                }
-
-                if (values.length > 7) {
-                    try {
-                        grade.setCredits(Double.parseDouble(values[7].trim()));
-                    } catch (NumberFormatException e) {
-                        grade.setCredits(0.0);
+    
+                    StudentGrade grade = new StudentGrade();
+                    grade.setUniversityId(universityId);
+                    grade.setStudentName(values[1].trim());
+                    grade.setStatus(values[2].trim());
+                    grade.setCourseCode(courseCode);
+                    grade.setCourseName(values[4].trim());
+    
+                    // Parsing and setting additional fields as per original code...
+                    if (values.length > 5) {
+                        String gradeValue = values[5].trim();
+                        int indexOfParenthesis = gradeValue.indexOf('(');
+                        if (indexOfParenthesis != -1) {
+                            gradeValue = gradeValue.substring(0, indexOfParenthesis).trim();
+                        }
+                        grade.setGrade(gradeValue.replace("\"", ""));
                     }
+    
+                    if (values.length > 6) {
+                        try {
+                            grade.setGradePoint(Double.parseDouble(values[6].trim()));
+                        } catch (NumberFormatException e) {
+                            grade.setGradePoint(0.0);
+                        }
+                    }
+    
+                    if (values.length > 7) {
+                        try {
+                            grade.setCredits(Double.parseDouble(values[7].trim()));
+                        } catch (NumberFormatException e) {
+                            grade.setCredits(0.0);
+                        }
+                    }
+    
+                    if (values.length > 8) grade.setPromotion(values[8].trim());
+                    if (values.length > 9) grade.setYear(values[9].trim());
+                    if (values.length > 10) grade.setSemester(values[10].trim());
+                    if (values.length > 11) grade.setCategory(values[11].trim());
+    
+                    studentGradesToSave.add(grade);
                 }
-
-                if (values.length > 8) grade.setPromotion(values[8].trim());
-                if (values.length > 9) grade.setYear(values[9].trim());
-                if (values.length > 10) grade.setSemester(values[10].trim());
-                if (values.length > 11) grade.setCategory(values[11].trim());
-
-                studentGrades.add(grade);
             }
-        }
-        
-        return studentGradeRepository.saveAll(studentGrades);
-    }    
+    
+            // Save new grades and return messages
+            if (!studentGradesToSave.isEmpty()) {
+                studentGradeRepository.saveAll(studentGradesToSave);
+                messages.add("Successfully imported " + studentGradesToSave.size() + " new grade records.");
+            } else {
+                messages.add("No new grade records to import.");
+            }
+    
+            return messages;
+        }  
     // Get all grades
     public List<StudentGrade> getAllGrades() {
         return studentGradeRepository.findAll();
