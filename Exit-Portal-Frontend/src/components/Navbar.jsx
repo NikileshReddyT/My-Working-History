@@ -9,7 +9,6 @@ const CustomNavbar = ({ data }) => {
     console.error("Student data is not defined!");
     return null;
   }
-  console.log(data);
 
   const { universityId, studentName } = data[0];
   // Use a dummy photo if none is provided

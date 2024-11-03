@@ -18,7 +18,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
 
     axios
       .get(
-        `https://exit-portal-requirement-klu.onrender.com/api/v1/frontend/getallcourses/${encodedCategoryName}`
+        `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
       )
       .then((response) => {
         setAllCourses(response.data || []);
@@ -27,8 +27,11 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
 
   const filterAvailableCourses = () => {
     const completedCourseCodes = category.map(course => course.courseCode);
-    return allCourses.filter(course => !completedCourseCodes.includes(course.courseCode));
+    const completedCourseTitles = category.map(course => course.courseName);
+    return allCourses.filter(course => !completedCourseCodes.includes(course.courseCode)  && !completedCourseTitles.includes(course.courseTitle));
+
   };
+  
 
   const availableCourses = filterAvailableCourses();
 
@@ -91,7 +94,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
                       ))}
                     </tbody>
                   </table>
-                  </>
+                </>
               )}
             </>
           ) : (
