@@ -50,25 +50,41 @@ const PdfDownloadButton = ({ studentId }) => {
       if (currentY + requiredSpace > pageHeight - 40) addPage();
     };
 
-    // Header
-    doc.setFillColor(0, 51, 102);
+    // Header with maroon color and swapped text
+    doc.setFillColor(128, 0, 0); // Maroon color
     doc.rect(0, 0, pageWidth, 60, 'F');
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
+    doc.setFontSize(18);
     doc.setFont("helvetica", "bold");
-    doc.text("KONERU LAKSHMAIAH EDUCATION FOUNDATION", pageWidth / 2, 30, { align: "center" });
+    doc.text("DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING", pageWidth / 2, 30, { align: "center" });
     doc.setFontSize(16);
-    doc.text("DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING", pageWidth / 2, 50, { align: "center" });
+    doc.text("KONERU LAKSHMAIAH EDUCATION FOUNDATION", pageWidth / 2, 50, { align: "center" });
 
-    currentY = 80;
+    currentY = 100;
 
-    // Student Info
-    doc.setTextColor(0, 0, 0);
+    // Styled Student Info
+// Student Name - larger and bolder for emphasis
+doc.setTextColor(0, 0, 0);
+doc.setFontSize(18);
+doc.setFont("helvetica", "bold");
+doc.text(`${reportData.studentName}`, pageWidth / 2, currentY, { align: "center" });
+
+// Student ID - smaller and more subtle
+doc.setFontSize(16);
+doc.setFont("helvetica", "normal");
+doc.setTextColor(100, 100, 100); // Lighter gray for secondary info
+doc.text(`ID: ${reportData.studentId}`, pageWidth / 2, currentY + 20, { align: "center" });
+
+currentY += 60; // Reduced spacing after header
+
+    // Total Credits and Courses - Aligned to Both Ends
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text(`Student Name: ${reportData.studentName}`, 40, currentY);
-    doc.text(`Student ID: ${reportData.studentId}`, 40, currentY + 20);
-    currentY += 100;
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Total Registered Courses: ${reportData.totalRegisteredCourses}`, 40, currentY);
+    doc.text(`Total Registered Credits: ${reportData.totalRegisteredCredits}`, pageWidth - 40, currentY, { align: "right" });
+
+    currentY += 40;
 
     // Categories
     reportData.categories.forEach((category) => {
@@ -102,7 +118,7 @@ const PdfDownloadButton = ({ studentId }) => {
           startY: currentY,
           margin: { horizontal: 30 },
           styles: { cellPadding: 2, fontSize: 10, overflow: 'linebreak', halign: 'center', valign: 'middle' },
-          headStyles: { fillColor: [150, 150, 150], fontStyle: 'bold' },
+          headStyles: { fillColor: [160, 110, 110], fontStyle: 'bold' },
           didDrawPage: () => (currentY = 80) // reset for new page
         });
 
@@ -111,15 +127,15 @@ const PdfDownloadButton = ({ studentId }) => {
         currentY -= 10;
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
+        doc.setTextColor(115, 65, 65);
         doc.text("No courses registered", pageWidth / 2, currentY + 20, { align: "center" });
         doc.setTextColor(0, 0, 0);
         currentY += 60;
       }
     });
 
-    // Footer
-    doc.setFillColor(0, 51, 102);
+    // Footer with maroon color
+    doc.setFillColor(128, 0, 0);
     doc.rect(0, pageHeight - 30, pageWidth, 30, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(10);
