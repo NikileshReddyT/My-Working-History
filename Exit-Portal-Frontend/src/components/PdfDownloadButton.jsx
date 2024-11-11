@@ -104,16 +104,16 @@ currentY += 60; // Reduced spacing after header
 
       if (Array.isArray(category.courses) && category.courses.length > 0) {
         const tableData = category.courses.map(course => [
-          course.courseCode,
           course.year?.toString() || "-",
           course.semester || "-",
+          course.courseCode,
           course.courseName,
           course.credits?.toString() || "-",
           course.grade || "Not Released"
         ]);
 
         doc.autoTable({
-          head: [["Course Code", "Year", "Semester", "Name", "Credits", "Result"]],
+          head: [["Year", "Semester","Course Code", "Name", "Credits", "Result"]],
           body: tableData,
           startY: currentY,
           margin: { horizontal: 30 },
