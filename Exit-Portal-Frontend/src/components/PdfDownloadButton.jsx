@@ -63,19 +63,17 @@ const PdfDownloadButton = ({ studentId }) => {
     currentY = 100;
 
     // Styled Student Info
-// Student Name - larger and bolder for emphasis
-doc.setTextColor(0, 0, 0);
-doc.setFontSize(18);
-doc.setFont("helvetica", "bold");
-doc.text(`${reportData.studentName}`, pageWidth / 2, currentY, { align: "center" });
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text(`${reportData.studentName}`, pageWidth / 2, currentY, { align: "center" });
 
-// Student ID - smaller and more subtle
-doc.setFontSize(16);
-doc.setFont("helvetica", "normal");
-doc.setTextColor(100, 100, 100); // Lighter gray for secondary info
-doc.text(`ID: ${reportData.studentId}`, pageWidth / 2, currentY + 20, { align: "center" });
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(100, 100, 100);
+    doc.text(`ID: ${reportData.studentId}`, pageWidth / 2, currentY + 20, { align: "center" });
 
-currentY += 60; // Reduced spacing after header
+    currentY += 60;
 
     // Total Credits and Courses - Aligned to Both Ends
     doc.setFontSize(12);
@@ -103,7 +101,15 @@ currentY += 60; // Reduced spacing after header
       currentY += 30;
 
       if (Array.isArray(category.courses) && category.courses.length > 0) {
-        const tableData = category.courses.map(course => [
+        // Sort courses by year and then by semester (Odd Sem first, Even Sem second)
+        const sortedCourses = category.courses.sort((a, b) => {
+          if (a.year !== b.year) {
+            return a.year.localeCompare(b.year);
+          }
+          return a.semester === "Odd Sem" ? -1 : 1;
+        });
+
+        const tableData = sortedCourses.map(course => [
           course.year?.toString() || "-",
           course.semester || "-",
           course.courseCode,
@@ -113,13 +119,13 @@ currentY += 60; // Reduced spacing after header
         ]);
 
         doc.autoTable({
-          head: [["Year", "Semester","Course Code", "Name", "Credits", "Result"]],
+          head: [["Year", "Semester", "Course Code", "Name", "Credits", "Result"]],
           body: tableData,
           startY: currentY,
           margin: { horizontal: 30 },
           styles: { cellPadding: 2, fontSize: 10, overflow: 'linebreak', halign: 'center', valign: 'middle' },
           headStyles: { fillColor: [160, 110, 110], fontStyle: 'bold' },
-          didDrawPage: () => (currentY = 80) // reset for new page
+          didDrawPage: () => (currentY = 80)
         });
 
         currentY = doc.lastAutoTable.finalY + 50;

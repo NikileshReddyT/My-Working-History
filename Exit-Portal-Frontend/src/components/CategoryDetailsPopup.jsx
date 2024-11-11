@@ -13,9 +13,17 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
         `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
       )
       .then((response) => {
-        setCategory(response.data || []);
+        const sortedData = (response.data || []).sort((a, b) => {
+          // Sort by year in ascending order
+          if (a.year !== b.year) {
+            return a.year.localeCompare(b.year);
+          }
+          // Sort by semester, with "Odd Sem" before "Even Sem"
+          return a.semester === "Odd Sem" ? -1 : 1;
+        });
+        setCategory(sortedData);
       });
-
+  
     axios
       .get(
         `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
@@ -24,14 +32,13 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
         setAllCourses(response.data || []);
       });
   }, [categoryName, studentId]);
+  
 
   const filterAvailableCourses = () => {
     const completedCourseCodes = category.map(course => course.courseCode);
     const completedCourseTitles = category.map(course => course.courseName);
-    return allCourses.filter(course => !completedCourseCodes.includes(course.courseCode)  && !completedCourseTitles.includes(course.courseTitle));
-
+    return allCourses.filter(course => !completedCourseCodes.includes(course.courseCode) && !completedCourseTitles.includes(course.courseTitle));
   };
-  
 
   const availableCourses = filterAvailableCourses();
 
