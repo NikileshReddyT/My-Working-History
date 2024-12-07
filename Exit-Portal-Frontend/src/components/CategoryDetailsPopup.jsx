@@ -10,7 +10,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
     const encodedCategoryName = encodeURIComponent(categoryName);
     axios
       .get(
-        `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
+        `https://keen-radiance-production.up.railway.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
       )
       .then((response) => {
         const sortedData = (response.data || []).sort((a, b) => {
@@ -26,7 +26,7 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
   
     axios
       .get(
-        `https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
+        `https://keen-radiance-production.up.railway.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
       )
       .then((response) => {
         setAllCourses(response.data || []);

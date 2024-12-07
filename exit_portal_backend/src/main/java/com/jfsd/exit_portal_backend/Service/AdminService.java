@@ -1,7 +1,9 @@
 package com.jfsd.exit_portal_backend.Service;
 
 import com.jfsd.exit_portal_backend.Model.StudentCategoryProgress;
+import com.jfsd.exit_portal_backend.Model.StudentCredentials;
 import com.jfsd.exit_portal_backend.Repository.StudentCategoryProgressRepository;
+import com.jfsd.exit_portal_backend.Repository.StudentCredentialsRepository;
 import com.jfsd.exit_portal_backend.RequestBodies.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,24 @@ public class AdminService {
 
     @Autowired
     private StudentCategoryProgressRepository studentCategoryProgressRepository;
+
+    @Autowired
+    private StudentCredentialsRepository studentCredentialsRepository;
+
+    public List<Admin> getAllAdminConsolidation(){
+        List<StudentCredentials> adminList = studentCredentialsRepository.findAll();
+        List<Admin> adminConsolidation = new ArrayList<>();
+        for (StudentCredentials admin : adminList) {
+            Admin a = getAdminConsolidationByUniversityId(admin.getStudentId());
+            adminConsolidation.add(a);
+        }
+        return adminConsolidation;
+    }
+
+
+
+
+
 
     public Admin getAdminConsolidationByUniversityId(String universityId) {
         List<StudentCategoryProgress> studentProgressList = studentCategoryProgressRepository.findByUniversityId(universityId);

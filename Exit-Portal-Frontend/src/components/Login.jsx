@@ -19,7 +19,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-        const response = await axios.post('https://exit-portal-requirement-klu-production.up.railway.app/api/v1/frontend/login', {
+        const response = await axios.post('https://keen-radiance-production.up.railway.app/api/v1/frontend/login', {
             universityId: id,
             password: password
         });
