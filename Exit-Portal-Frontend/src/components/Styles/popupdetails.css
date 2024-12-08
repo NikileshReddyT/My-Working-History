@@ -99,6 +99,46 @@ h3 {
   font-weight: bold;
 }
 
+.empty-state-container {
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.empty-state-message {
+  margin: 20px 0;
+  padding: 15px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.empty-state-message h4 {
+  color: #dc3545;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.empty-state-message p {
+  color: #6c757d;
+  margin: 5px 0;
+}
+
+.empty-state-submessage {
+  color: #6c757d;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
 /* Media queries for responsiveness */
 
 /* Tablets */

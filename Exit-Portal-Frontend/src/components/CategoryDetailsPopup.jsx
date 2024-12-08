@@ -5,34 +5,32 @@ import './Styles/popupdetails.css';
 const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose }) => {
   const [category, setCategory] = useState([]);
   const [allCourses, setAllCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const encodedCategoryName = encodeURIComponent(categoryName);
-    axios
-      .get(
+    
+    Promise.all([
+      axios.get(
         `https://keen-radiance-production.up.railway.app/api/v1/frontend/getcategorydetails/${encodedCategoryName}/${studentId}`
-      )
-      .then((response) => {
-        const sortedData = (response.data || []).sort((a, b) => {
-          // Sort by year in ascending order
-          if (a.year !== b.year) {
-            return a.year.localeCompare(b.year);
-          }
-          // Sort by semester, with "Odd Sem" before "Even Sem"
-          return a.semester === "Odd Sem" ? -1 : 1;
-        });
-        setCategory(sortedData);
-      });
-  
-    axios
-      .get(
+      ),
+      axios.get(
         `https://keen-radiance-production.up.railway.app/api/v1/frontend/getallcourses/${encodedCategoryName}`
       )
-      .then((response) => {
-        setAllCourses(response.data || []);
+    ]).then(([categoryResponse, coursesResponse]) => {
+      const sortedData = (categoryResponse.data || []).sort((a, b) => {
+        if (a.year !== b.year) {
+          return a.year.localeCompare(b.year);
+        }
+        return a.semester === "Odd Sem" ? -1 : 1;
       });
+      setCategory(sortedData);
+      setAllCourses(coursesResponse.data || []);
+    }).finally(() => {
+      setLoading(false);
+    });
   }, [categoryName, studentId]);
-  
 
   const filterAvailableCourses = () => {
     const completedCourseCodes = category.map(course => course.courseCode);
@@ -48,37 +46,47 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
         <div className="popup-content">
           <button className="close-button" onClick={onClose}>X</button>
           <h3>{categoryName} - Course Details</h3>
-          {category.length > 0 ? (
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
             <>
               {pendingCourses > 0 && (
                 <p>You need to complete {pendingCourses} more courses in this category.</p>
               )}
-              <table className="course-table">
-                <thead>
-                  <tr>
-                    <th>Year</th>
-                    <th>Semester</th>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                    <th>Grade</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {category.map((course, index) => (
-                    <tr key={index}>
-                      <td>{course.year}</td>
-                      <td>{course.semester}</td>
-                      <td>{course.courseCode}</td>
-                      <td>{course.courseName}</td>
-                      <td>{course.grade}</td>
-                      <td style={{ color: course.promotion.toLowerCase() === 'p' ? 'green' : (course.promotion.toLowerCase() === 'registered' ? 'orange' : (course.promotion.toLowerCase() === 'dt' ? 'red': 'red')) }}>
-                        {course.promotion.toLowerCase() === 'p' ? 'Completed' : (course.promotion.toLowerCase() === 'registered' ? 'Result To be declared' : (course.promotion.toLowerCase() === 'dt' ? 'Re-Register': 'Not Completed'))}
-                      </td>
+              {category.length > 0 ? (
+                <table className="course-table">
+                  <thead>
+                    <tr>
+                      <th>Year</th>
+                      <th>Semester</th>
+                      <th>Course Code</th>
+                      <th>Course Name</th>
+                      <th>Grade</th>
+                      <th>Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {category.map((course, index) => (
+                      <tr key={index}>
+                        <td>{course.year}</td>
+                        <td>{course.semester}</td>
+                        <td>{course.courseCode}</td>
+                        <td>{course.courseName}</td>
+                        <td>{course.grade}</td>
+                        <td style={{ color: course.promotion.toLowerCase() === 'p' ? 'green' : (course.promotion.toLowerCase() === 'registered' ? 'orange' : (course.promotion.toLowerCase() === 'dt' ? 'red': 'red')) }}>
+                          {course.promotion.toLowerCase() === 'p' ? 'Completed' : (course.promotion.toLowerCase() === 'registered' ? 'Result To be declared' : (course.promotion.toLowerCase() === 'dt' ? 'Re-Register': 'Not Completed'))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="empty-state-message">
+                  <h4>No Courses Completed</h4>
+                  <p>You haven't completed any courses in this category yet.</p>
+                  <p>Required: {pendingCourses} course{pendingCourses > 1 ? 's' : ''} to complete</p>
+                </div>
+              )}
               {pendingCourses > 0 && availableCourses.length > 0 && (
                 <>
                   <h4>Other Courses Available for Registration</h4>
@@ -104,8 +112,6 @@ const CategoryDetailsPopup = ({ categoryName, studentId, pendingCourses, onClose
                 </>
               )}
             </>
-          ) : (
-            <p>Loading...</p>
           )}
         </div>
       </div>
